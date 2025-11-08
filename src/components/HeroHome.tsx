@@ -132,10 +132,13 @@ function HeroHome() {
                         src="/robot-hero-low.webp"
                         alt="Hero background low quality"
                         fill
+                        sizes="100vw"
+                        quality={50}
                         className={`object-contain object-bottom dark:brightness-90 dark:contrast-110 dark:saturate-90 transition-opacity duration-800 ${imageLoaded ? 'opacity-0' : 'opacity-100'
                             }`}
                         priority
                         draggable={false}
+                        style={{ objectFit: 'contain', objectPosition: 'bottom' }}
                     />
 
                     {/* High quality - fades in on top */}
@@ -143,10 +146,13 @@ function HeroHome() {
                         src="/robot-hero.webp"
                         alt="Hero background"
                         fill
+                        sizes="100vw"
+                        quality={100}
                         className={`object-contain object-bottom dark:brightness-90 dark:contrast-110 dark:saturate-90 transition-opacity duration-200 ${imageLoaded ? 'opacity-100' : 'opacity-0'
                             }`}
-                        loading="eager"
+                        priority
                         draggable={false}
+                        style={{ objectFit: 'contain', objectPosition: 'bottom' }}
                     />
                 </div>
 

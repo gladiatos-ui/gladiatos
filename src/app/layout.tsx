@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} bg-background text-text transition-colors duration-500`}>
+      <body className={`${inter.className} bg-background text-text`}>
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
           <StyledComponentsRegistry>
             {children}
