@@ -47,7 +47,8 @@ function HeroHome() {
                 }
 
                 // Detect theme and set backgroundColor
-                const isDark = theme === 'dark';
+                const currentTheme = theme || 'dark';
+                const isDark = currentTheme === 'dark';
                 const bgColor = isDark ? 0x121212 : 0xffffff;
 
                 // Initialize Vanta and store reference
@@ -115,8 +116,8 @@ function HeroHome() {
     const title = "GLADIATOS";
 
     return (
-        <div className="relative w-full h-screen">
-            <div className="h-screen">
+        <div className="relative w-full h-[100dvh]">
+            <div className="h-[100dvh]">
                 {/* Vanta DOTS background with fade-in */}
                 <div
                     ref={vantaRef}
@@ -125,7 +126,7 @@ function HeroHome() {
                 />
 
                 {/* Robot image with crossfade */}
-                <div className="absolute bottom-0 left-0 right-0 h-[60vh] z-10">
+                <div className="absolute bottom-0 left-0 right-0 h-[60dvh] z-10">
                     {/* Low quality - always rendered */}
                     <Image
                         src="/robot-hero-low.webp"
@@ -150,7 +151,7 @@ function HeroHome() {
                 </div>
 
                 {/* Hero content */}
-                <div className="relative z-20 flex flex-col items-center justify-start h-full px-2 sm:px-8 pt-[20vh] sm:pt-[16vh] pb-20">
+                <div className="relative z-20 flex flex-col items-center justify-start h-full px-2 sm:px-8 pt-[20dvh] sm:pt-[16dvh] pb-20">
                     {/* Subtitle with fade animation */}
                     <motion.p
                         className="text-[clamp(0.5rem,2.4vw,0.875rem)] sm:text-sm md:text-base lg:text-lg font-bold tracking-wider uppercase text-text"

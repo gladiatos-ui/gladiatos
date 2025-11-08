@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 function AboutUs() {
     return (
         <div className="relative w-full">
-            <div className="relative w-full h-[20vh]">
+            <div className="relative w-full h-[20dvh]">
                 <Image
                     src="/hero-break.svg"
                     alt="Section divider"
@@ -17,7 +17,7 @@ function AboutUs() {
                 />
             </div>
 
-            <div className="container mx-auto px-4 py-[10vh]">
+            <div className="container mx-auto px-4 py-[10dvh]">
                 <div className="flex flex-col md:flex-row gap-12 items-center">
                     {/* Team Image */}
                     <motion.div

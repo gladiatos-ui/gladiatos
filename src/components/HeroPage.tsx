@@ -59,7 +59,8 @@ function HeroPage({ title, description, buttonText, buttonHref, bgColor }: HeroP
                 }
 
                 // Detect theme and set backgroundColor
-                const isDark = theme === 'dark';
+                const currentTheme = theme || 'dark';
+                const isDark = currentTheme === 'dark';
                 const bgColor = isDark ? 0x121212 : 0xffffff;
 
                 // Initialize Vanta and store reference
@@ -102,8 +103,8 @@ function HeroPage({ title, description, buttonText, buttonHref, bgColor }: HeroP
 
     return (
         <>
-            <div className="relative w-full h-screen">
-                <div className="h-screen max-lg:landscape:pt-32">
+            <div className="relative w-full h-[100dvh]">
+                <div className="h-[100dvh] max-lg:landscape:pt-32">
                     {/* Vanta DOTS background with fade-in */}
                     <div
                         ref={vantaRef}
@@ -154,7 +155,7 @@ function HeroPage({ title, description, buttonText, buttonHref, bgColor }: HeroP
                     </div>
                 </div>
             </div>
-            <div className={`relative w-full h-[20vh] ${bgColor}`}>
+            <div className={`relative w-full h-[20dvh] ${bgColor}`}>
                 <Image
                     src="/hero-break.svg"
                     alt="Section divider"

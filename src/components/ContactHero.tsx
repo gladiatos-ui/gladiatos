@@ -33,7 +33,7 @@ function ContactHero() {
     ];
 
     return (
-        <section className="relative w-full h-screen py-20 px-4 sm:px-8 flex justify-center items-center overflow-hidden">
+        <section className="relative w-full h-[100dvh] py-20 px-4 sm:px-8 flex justify-center items-center overflow-hidden">
             {/* Background Video */}
             <video
                 autoPlay
