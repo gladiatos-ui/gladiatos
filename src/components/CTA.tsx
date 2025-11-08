@@ -91,7 +91,7 @@ function CTA() {
                   Straight-up robotics
                 </h3>
                 <p className="text-md text-text mb-3">
-                  See what we're working on right now.
+                  See what we&apos;re working on right now.
                 </p>
                 <Link href="/projects">
                   <ArrowLink text="Get Started" />

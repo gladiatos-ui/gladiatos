@@ -2,30 +2,30 @@ import HeroPage from '@/components/HeroPage';
 import Navbar from '@/components/Navbar';
 import FAQItems from '@/components/FAQItems';
 import Footer from '@/components/Footer';
-import { GraphQLClient, gql } from 'graphql-request';
+// import { GraphQLClient, gql } from 'graphql-request';
 
-const endpoint = 'https://graphql.datocms.com/';
-const client = new GraphQLClient(endpoint, {
-  headers: {
-    Authorization: `Bearer ${process.env.DATOCMS_API_KEY}`,
-  },
-});
+// const endpoint = 'https://graphql.datocms.com/';
+// const client = new GraphQLClient(endpoint, {
+//   headers: {
+//     Authorization: `Bearer ${process.env.DATOCMS_API_KEY}`,
+//   },
+// });
 
-async function getFaqData() {
-  const response = await client.request(
-    gql`
-      {
-        faq {
-          faq {
-            answer
-            question
-          }
-        }
-      }
-    `
-  );
-  return response.faq;
-}
+// async function getFaqData() {
+//   const response = await client.request(
+//     gql`
+//       {
+//         faq {
+//           faq {
+//             answer
+//             question
+//           }
+//         }
+//       }
+//     `
+//   );
+//   return response.faq;
+// }
 
 function FAQ() {
   return (

@@ -68,7 +68,7 @@ function Quote({ quoteData }: QuoteProps) {
           transition={{ duration: 0.6, delay: 0.3 }}
         >
           <p className="text-3xl md:text-4xl lg:text-5xl font-medium italic mb-10 leading-snug text-foreground">
-            "{quote}"
+            &quot;{quote}&quot;
           </p>
 
           {/* Author */}

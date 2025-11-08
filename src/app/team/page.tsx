@@ -2,50 +2,50 @@ import HeroPage from '@/components/HeroPage';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import OurTeam from '@/components/OurTeam';
-import { GraphQLClient, gql } from 'graphql-request';
+// import { GraphQLClient, gql } from 'graphql-request';
 
-const endpoint = 'https://graphql.datocms.com/';
-const client = new GraphQLClient(endpoint, {
-  headers: {
-    Authorization: `Bearer ${process.env.DATOCMS_API_KEY}`,
-  },
-});
+// const endpoint = 'https://graphql.datocms.com/';
+// const client = new GraphQLClient(endpoint, {
+//   headers: {
+//     Authorization: `Bearer ${process.env.DATOCMS_API_KEY}`,
+//   },
+// });
 
-async function getTeamData() {
-  const response = await client.request(
-    gql`
-      {
-        team {
-          managerial {
-            name
-            image {
-              url
-            }
-          }
-          programming {
-            name
-            image {
-              url
-            }
-          }
-          electrical {
-            name
-            image {
-              url
-            }
-          }
-          mechanical {
-            name
-            image {
-              url
-            }
-          }
-        }
-      }
-    `
-  );
-  return response.team;
-}
+// async function getTeamData() {
+//   const response = await client.request(
+//     gql`
+//       {
+//         team {
+//           managerial {
+//             name
+//             image {
+//               url
+//             }
+//           }
+//           programming {
+//             name
+//             image {
+//               url
+//             }
+//           }
+//           electrical {
+//             name
+//             image {
+//               url
+//             }
+//           }
+//           mechanical {
+//             name
+//             image {
+//               url
+//             }
+//           }
+//         }
+//       }
+//     `
+//   );
+//   return response.team;
+// }
 
 function Team() {
   return (
