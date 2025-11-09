@@ -51,7 +51,7 @@ const CompetitionsGrid: React.FC = () => {
   ];
 
   return (
-    <section className="competitions-section px-2 py-4 md:py-16 pb-32">
+    <section className="competitions-section px-2 py-16">
       <div className="container mx-auto">
         {/* Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-3">
@@ -71,7 +71,7 @@ const CompetitionsGrid: React.FC = () => {
               style={{ minHeight: '300px' }}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true, amount: 0.1 }}
+              viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.8 }}
             >
               {/* Background Image */}

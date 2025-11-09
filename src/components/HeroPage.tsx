@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useTheme } from 'next-themes';
 import Button from "./Button";
 import Image from "next/image";
 import { motion } from "motion/react";
@@ -18,8 +17,8 @@ interface HeroPageProps {
 function HeroPage({ title, description, buttonText, buttonHref, bgColor }: HeroPageProps) {
     const vantaRef = useRef<HTMLDivElement>(null);
     const vantaEffect = useRef<{ destroy: () => void } | null>(null);
-    const { theme } = useTheme();
     const [vantaLoaded, setVantaLoaded] = useState(false);
+    const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
     // Parse description with **highlighted text**
     const renderDescription = () => {
@@ -32,6 +31,26 @@ function HeroPage({ title, description, buttonText, buttonHref, bgColor }: HeroP
             return <span key={index}>{part}</span>;
         });
     };
+
+    useEffect(() => {
+        // Detect theme from document and watch for changes
+        const detectTheme = () => {
+            const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            setTheme(currentTheme);
+        };
+
+        // Initial detection
+        detectTheme();
+
+        // Watch for theme changes
+        const observer = new MutationObserver(detectTheme);
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+        return () => observer.disconnect();
+    }, []);
 
     useEffect(() => {
         // Load Three.js and Vanta.js scripts dynamically
@@ -58,10 +77,9 @@ function HeroPage({ title, description, buttonText, buttonHref, bgColor }: HeroP
                     vantaEffect.current.destroy();
                 }
 
-                // Detect theme and set backgroundColor
-                const currentTheme = theme || 'dark';
-                const isDark = currentTheme === 'dark';
-                const bgColor = isDark ? 0x121212 : 0xffffff;
+                // Detect theme and set Vanta backgroundColor
+                const isDark = theme === 'dark';
+                const vantaBgColor = isDark ? 0x121212 : 0xffffff;
 
                 // Initialize Vanta and store reference
                 const windowWithVanta = window as Window & {
@@ -81,7 +99,7 @@ function HeroPage({ title, description, buttonText, buttonHref, bgColor }: HeroP
                         scale: 1.00,
                         scaleMobile: 1.00,
                         color: 0xff2020,
-                        backgroundColor: bgColor,
+                        backgroundColor: vantaBgColor,
                         showLines: false
                     });
 
@@ -103,8 +121,8 @@ function HeroPage({ title, description, buttonText, buttonHref, bgColor }: HeroP
 
     return (
         <>
-            <div className="relative w-full h-[100dvh]">
-                <div className="h-[100dvh] max-lg:landscape:pt-32">
+            <div className="relative w-full h-[45rem]">
+                <div className="h-[45rem] max-lg:landscape:pt-32">
                     {/* Vanta DOTS background with fade-in */}
                     <div
                         ref={vantaRef}
@@ -155,12 +173,12 @@ function HeroPage({ title, description, buttonText, buttonHref, bgColor }: HeroP
                     </div>
                 </div>
             </div>
-            <div className={`relative w-full h-[20dvh] ${bgColor}`}>
+            <div className={`relative w-full h-[6rem] ${bgColor}`}>
                 <Image
                     src="/hero-break.svg"
                     alt="Section divider"
                     fill
-                    className="object-contain object-top"
+                    className="object-cover object-left-top"
                     priority
                     draggable={false}
                 />

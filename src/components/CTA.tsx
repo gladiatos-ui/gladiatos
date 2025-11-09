@@ -12,11 +12,11 @@ function CTA() {
     <div className="relative w-full py-32 pb-48">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-          {/* Left section - Heading, Description, Buttons */}
+          {/* Left section */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
           >
             {/* Main heading */}
@@ -37,7 +37,7 @@ function CTA() {
             </div>
           </motion.div>
 
-          {/* Right section - Feature cards */}
+          {/* Right section */}
           <div className="grid md:grid-cols-2 gap-8">
             {/* Card 1 */}
             <motion.div

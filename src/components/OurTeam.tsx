@@ -45,7 +45,7 @@ function TeamSection({ title, members, bgColor }: TeamSectionProps) {
       <div className="max-w-6xl mx-auto">
         {/* Section Title */}
         <motion.h2
-          className="uppercase text-[clamp(1.8rem,8vw,3.5rem)] md:text-6xl font-semibold font-orbitron text-primary mb-16 text-center"
+          className="uppercase text-[clamp(2rem,8vw,3.5rem)] md:text-6xl font-semibold font-orbitron text-primary mb-16 text-center"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}

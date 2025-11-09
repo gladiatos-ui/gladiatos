@@ -63,14 +63,13 @@ function ProjectsList() {
                 <div className="space-y-2">
                     {projects.map((project, index) => {
                         const isEven = index % 2 === 0;
-
                         return (
                             <motion.div
                                 key={project.id}
-                                className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} md:gap-12 items-center`}
+                                className={`flex flex-col ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} gap-4 md:gap-12 items-center py-6`}
                                 initial={{ opacity: 0, y: 50 }}
                                 whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true, amount: 0.3 }}
+                                viewport={{ once: true, amount: 0.2 }}
                                 transition={{ duration: 0.6, delay: index * 0.2 }}
                             >
                                 {/* Image Section */}
@@ -78,10 +77,10 @@ function ProjectsList() {
                                     className="md:w-1/2 w-full"
                                     initial={{ opacity: 0, x: isEven ? -50 : 50 }}
                                     whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true, amount: 0.3 }}
+                                    viewport={{ once: true, amount: 0.2 }}
                                     transition={{ duration: 0.6, delay: 0.2 }}
                                 >
-                                    <div className="relative w-full h-96">
+                                    <div className="relative w-full h-full aspect-[4/3]">
                                         <Image
                                             src="/about-gladiatos.webp"
                                             alt="Our Team"
@@ -91,13 +90,12 @@ function ProjectsList() {
                                         />
                                     </div>
                                 </motion.div>
-
                                 {/* Text Section */}
                                 <motion.div
                                     className="w-full md:w-1/2 space-y-4"
                                     initial={{ opacity: 0, x: isEven ? 50 : -50 }}
                                     whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true, amount: 0.3 }}
+                                    viewport={{ once: true, amount: 0.2 }}
                                     transition={{ duration: 0.6, delay: 0.4 }}
                                 >
                                     <h3 className="text-center text-3xl md:text-4xl font-semibold text-foreground">

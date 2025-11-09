@@ -1,25 +1,21 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useId } from 'react';
 import styled from 'styled-components';
-import { useTheme } from 'next-themes';
 
 const ThemeToggle = () => {
-  const { theme, setTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-  const [uniqueId] = useState(() => `moon-mask-${Math.random().toString(36).substr(2, 9)}`);
+  const uniqueId = useId();
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   useEffect(() => {
-    setMounted(true);
-  }, []);
+    // Apply theme to document
+    document.documentElement.classList.remove('light', 'dark');
+    document.documentElement.classList.add(theme);
+  }, [theme]);
 
   const handleToggle = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
-
-  if (!mounted) {
-    return <div style={{ width: '2em', height: '2em' }} />;
-  }
 
   const isDark = theme === 'dark';
 

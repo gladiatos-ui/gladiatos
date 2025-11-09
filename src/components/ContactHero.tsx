@@ -28,12 +28,12 @@ function ContactHero() {
             title: "Send us an email",
             subtitle: "We'd love to hear from you!",
             linkText: "Email us",
-            href: "mailto:contact@gladiatos.com"
+            href: "mailto:gladiatos@gmail.com"
         }
     ];
 
     return (
-        <section className="relative w-full h-[100dvh] py-20 px-4 sm:px-8 flex justify-center items-center overflow-hidden">
+        <section className="relative w-full h-[60rem] py-20 px-4 sm:px-8 flex justify-center items-center overflow-hidden">
             {/* Background Video */}
             <video
                 autoPlay

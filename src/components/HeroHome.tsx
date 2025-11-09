@@ -2,23 +2,32 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { useTheme } from 'next-themes';
 import { motion } from "motion/react";
 
 function HeroHome() {
     const vantaRef = useRef<HTMLDivElement>(null);
     const vantaEffect = useRef<{ destroy: () => void } | null>(null);
-    const { theme } = useTheme();
-    const [imageLoaded, setImageLoaded] = useState(false);
     const [vantaLoaded, setVantaLoaded] = useState(false);
+    const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
     useEffect(() => {
-        // Preload high-quality image
-        const img = new window.Image();
-        img.src = '/robot-hero.webp';
-        img.onload = () => {
-            setTimeout(() => setImageLoaded(true), 100);
+        // Detect theme from document and watch for changes
+        const detectTheme = () => {
+            const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+            setTheme(currentTheme);
         };
+
+        // Initial detection
+        detectTheme();
+
+        // Watch for theme changes
+        const observer = new MutationObserver(detectTheme);
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['class']
+        });
+
+        return () => observer.disconnect();
     }, []);
 
     useEffect(() => {
@@ -46,10 +55,9 @@ function HeroHome() {
                     vantaEffect.current.destroy();
                 }
 
-                // Detect theme and set backgroundColor
-                const currentTheme = theme || 'dark';
-                const isDark = currentTheme === 'dark';
-                const bgColor = isDark ? 0x121212 : 0xffffff;
+                // Detect theme and set Vanta backgroundColor
+                const isDark = theme === 'dark';
+                const vantaBgColor = isDark ? 0x121212 : 0xffffff;
 
                 // Initialize Vanta and store reference
                 const windowWithVanta = window as Window & {
@@ -69,7 +77,7 @@ function HeroHome() {
                         scale: 1.00,
                         scaleMobile: 1.00,
                         color: 0xff2020,
-                        backgroundColor: bgColor,
+                        backgroundColor: vantaBgColor,
                         showLines: false
                     });
 
@@ -116,8 +124,8 @@ function HeroHome() {
     const title = "GLADIATOS";
 
     return (
-        <div className="relative w-full h-[100dvh]">
-            <div className="h-[100dvh]">
+        <div className="relative w-full h-[45rem]">
+            <div className="h-[45rem]">
                 {/* Vanta DOTS background with fade-in */}
                 <div
                     ref={vantaRef}
@@ -125,39 +133,20 @@ function HeroHome() {
                         }`}
                 />
 
-                {/* Robot image with crossfade */}
-                <div className="absolute bottom-0 left-0 right-0 h-[60dvh] z-10">
-                    {/* Low quality - always rendered */}
-                    <Image
-                        src="/robot-hero-low.webp"
-                        alt="Hero background low quality"
-                        fill
-                        sizes="100vw"
-                        quality={50}
-                        className={`object-contain object-bottom dark:brightness-90 dark:contrast-110 dark:saturate-90 transition-opacity duration-800 ${imageLoaded ? 'opacity-0' : 'opacity-100'
-                            }`}
-                        priority
-                        draggable={false}
-                        style={{ objectFit: 'contain', objectPosition: 'bottom' }}
-                    />
-
-                    {/* High quality - fades in on top */}
+                {/* Robot image */}
+                <div className="absolute bottom-0 left-0 right-0 h-[25rem] z-10">
                     <Image
                         src="/robot-hero.webp"
                         alt="Hero background"
                         fill
-                        sizes="100vw"
-                        quality={100}
-                        className={`object-contain object-bottom dark:brightness-90 dark:contrast-110 dark:saturate-90 transition-opacity duration-200 ${imageLoaded ? 'opacity-100' : 'opacity-0'
-                            }`}
-                        priority
+                        className="object-contain object-bottom dark:brightness-90 dark:contrast-110 dark:saturate-90"
+                        loading="eager"
                         draggable={false}
-                        style={{ objectFit: 'contain', objectPosition: 'bottom' }}
                     />
                 </div>
 
                 {/* Hero content */}
-                <div className="relative z-20 flex flex-col items-center justify-start h-full px-2 sm:px-8 pt-[20dvh] sm:pt-[16dvh] pb-20">
+                <div className="relative z-20 flex flex-col items-center justify-start h-full px-2 sm:px-8 pt-[10rem] sm:pt-[8rem] pb-20">
                     {/* Subtitle with fade animation */}
                     <motion.p
                         className="text-[clamp(0.5rem,2.4vw,0.875rem)] sm:text-sm md:text-base lg:text-lg font-bold tracking-wider uppercase text-text"

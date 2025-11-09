@@ -6,28 +6,28 @@ import { motion } from "motion/react";
 function AboutUs() {
     return (
         <div className="relative w-full">
-            <div className="relative w-full h-[20dvh]">
+            <div className="relative w-full h-[6rem]">
                 <Image
                     src="/hero-break.svg"
                     alt="Section divider"
                     fill
-                    className="object-contain object-top"
+                    className="object-cover object-left-top"
                     priority
                     draggable={false}
                 />
             </div>
 
-            <div className="container mx-auto px-4 py-[10dvh]">
+            <div className="container mx-auto px-4 py-[6rem]">
                 <div className="flex flex-col md:flex-row gap-12 items-center">
                     {/* Team Image */}
                     <motion.div
                         className="md:w-1/2 w-full"
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
+                        viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.6 }}
                     >
-                        <div className="relative w-full h-96">
+                        <div className="relative w-full h-full aspect-[4/3]">
                             <Image
                                 src="/about-gladiatos.webp"
                                 alt="Our Team"
@@ -43,7 +43,7 @@ function AboutUs() {
                         className="md:w-1/2 w-full"
                         initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, amount: 0.3 }}
+                        viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.6, delay: 0.2 }}
                     >
                         <motion.div

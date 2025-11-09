@@ -59,7 +59,7 @@ function FAQItems() {
   };
 
   return (
-    <div className="w-full py-20 px-4 sm:px-8">
+    <div className="w-full py-16 px-4 sm:px-8">
       <div className="max-w-4xl mx-auto">
         {faqData.map((item, index) => (
           <motion.div
@@ -67,7 +67,7 @@ function FAQItems() {
             className="border-b-3 border-primary overflow-hidden"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             whileHover={{ x: 8, transition: { duration: 0.2 } }}
           >

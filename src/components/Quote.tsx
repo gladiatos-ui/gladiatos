@@ -92,15 +92,6 @@ function Quote({ quoteData }: QuoteProps) {
             Ketua Gladiatos {year}
           </motion.p>
         </motion.div>
-
-        {/* Decorative line bottom */}
-        <motion.div 
-          className="w-40 md:w-80 h-1 bg-primary mx-auto mt-16"
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.7 }}
-        ></motion.div>
       </div>
     </div>
   )

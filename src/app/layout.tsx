@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { Inter } from "next/font/google";
 import StyledComponentsRegistry from "@/lib/registry";
-import { ThemeProvider } from "next-themes";
 
 export const metadata: Metadata = {
   title: "Gladiatos UI",
@@ -20,11 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.className} bg-background text-text`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
-          <StyledComponentsRegistry>
-            {children}
-          </StyledComponentsRegistry>
-        </ThemeProvider>
+        <StyledComponentsRegistry>
+          {children}
+        </StyledComponentsRegistry>
       </body>
     </html>
   );
