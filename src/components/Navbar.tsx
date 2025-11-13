@@ -77,12 +77,12 @@ function Navbar() {
 
       {/* Mobile Menu */}
       <div
-        className={`fixed inset-0 z-40 md:hidden bg-background transition-opacity duration-500 ease-in-out ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        className={`fixed inset-0 z-40 md:hidden bg-background transition-opacity duration-500 ease-in-out overflow-y-auto ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
           }`}
       >
-        <div className="flex flex-col items-center justify-center h-full px-8">
+        <div className="flex flex-col items-center justify-center min-h-full px-8 py-20">
           {/* Navigation Links */}
-          <ul className="flex flex-col items-center gap-8 text-xl font-semibold uppercase tracking-wide mb-12">
+          <ul className="flex flex-col items-center gap-8 text-xl font-semibold uppercase tracking-wide mb-8">
             <li>
               <Link href="/" onClick={closeMobileMenu} className="text-foreground hover:text-primary transition-colors">
                 Home

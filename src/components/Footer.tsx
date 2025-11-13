@@ -61,7 +61,7 @@ function Footer({ slanted }: FooterProps) {
                     <div className="flex flex-col items-center justify-center gap-8 mb-12">
                         {/* Navigation Links */}
                         <nav>
-                            <ul className="px-2 flex flex-wrap gap-8 text-sm font-semibold uppercase tracking-wide justify-center">
+                            <ul className="px-4 flex flex-wrap gap-8 text-sm font-semibold uppercase tracking-wide justify-center">
                                 <li><Link href="/">Home</Link></li>
                                 <li><Link href="/projects">Projects</Link></li>
                                 <li><Link href="/competitions">Competitions</Link></li>
