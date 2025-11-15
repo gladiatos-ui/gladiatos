@@ -76,7 +76,7 @@ function Navbar() {
       </StyledNav>
 
       {/* Mobile Menu */}
-      <div
+      <MobileNav
         className={`fixed inset-0 z-40 md:hidden bg-background transition-opacity duration-500 ease-in-out overflow-y-auto ${isMobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
           }`}
       >
@@ -84,27 +84,27 @@ function Navbar() {
           {/* Navigation Links */}
           <ul className="flex flex-col items-center gap-8 text-xl font-semibold uppercase tracking-wide mb-8">
             <li>
-              <Link href="/" onClick={closeMobileMenu} className="text-foreground hover:text-primary transition-colors">
+              <Link href="/" onClick={closeMobileMenu}>
                 Home
               </Link>
             </li>
             <li>
-              <Link href="/projects" onClick={closeMobileMenu} className="text-foreground hover:text-primary transition-colors">
+              <Link href="/projects" onClick={closeMobileMenu}>
                 Projects
               </Link>
             </li>
             <li>
-              <Link href="/competitions" onClick={closeMobileMenu} className="text-foreground hover:text-primary transition-colors">
+              <Link href="/competitions" onClick={closeMobileMenu}>
                 Competitions
               </Link>
             </li>
             <li>
-              <Link href="/team" onClick={closeMobileMenu} className="text-foreground hover:text-primary transition-colors">
+              <Link href="/team" onClick={closeMobileMenu}>
                 Team
               </Link>
             </li>
             <li>
-              <Link href="/faq" onClick={closeMobileMenu} className="text-foreground hover:text-primary transition-colors">
+              <Link href="/faq" onClick={closeMobileMenu}>
                 FAQ
               </Link>
             </li>
@@ -117,7 +117,7 @@ function Navbar() {
             </Link>
           </div>
         </div>
-      </div>
+      </MobileNav>
     </>
   )
 }
@@ -176,5 +176,44 @@ const StyledNav = styled.nav`
     border-color: #ED1C24;
   }
 `;
+
+const MobileNav = styled.div`
+  ul a {
+    text-decoration: none;
+    position: relative;
+  }
+
+  ul a::before,
+  ul a::after {
+    content: "";
+    position: absolute;
+    display: block;
+    border: 0 solid transparent;
+    width: 0%;
+    height: 0%;
+    transition: all 0.3s ease;
+  }
+
+  ul a::after {
+    top: -8px;
+    left: -8px;
+    border-top: 2px solid transparent;
+    border-left: 2px solid transparent;
+  }
+
+  ul a::before {
+    right: -8px;
+    bottom: -8px;
+    border-bottom: 2px solid transparent;
+    border-right: 2px solid transparent;
+  }
+
+  ul a:hover::before,
+  ul a:hover::after {
+    width: 10px;
+    height: 10px;
+    border-color: #ED1C24;
+  }
+`
 
 export default Navbar

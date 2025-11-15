@@ -2,35 +2,37 @@ import HeroPage from '@/components/HeroPage';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ProjectsList from '@/components/ProjectsList';
-// import { GraphQLClient, gql } from 'graphql-request';
+import { GraphQLClient, gql } from 'graphql-request';
 
-// const endpoint = 'https://graphql.datocms.com/';
-// const client = new GraphQLClient(endpoint, {
-//   headers: {
-//     Authorization: `Bearer ${process.env.DATOCMS_API_KEY}`,
-//   },
-// });
+const endpoint = 'https://graphql.datocms.com/';
+const client = new GraphQLClient(endpoint, {
+  headers: {
+    Authorization: `Bearer ${process.env.DATOCMS_API_KEY}`,
+  },
+});
 
-// async function getProjectData() {
-//   const response = await client.request(
-//     gql`
-//       {
-//         project {
-//           project {
-//             title
-//             image {
-//               url
-//             }
-//             description
-//           }
-//         }
-//       }
-//     `
-//   );
-//   return response.project;
-// }
+async function getProjectData() {
+  const response = await client.request(
+    gql`
+      {
+        project {
+          project {
+            id
+            title
+            image {
+              url
+            }
+            description
+          }
+        }
+      }
+    `
+  );
+  return response.project.project;
+}
 
-function Projects() {
+async function Projects() {
+  const projectData = await getProjectData();
   return (
     <div className="overflow-x-hidden">
       <Navbar />
@@ -42,7 +44,7 @@ function Projects() {
         bgColor='bg-background'
       />
       <div id="projects">
-        <ProjectsList />
+        <ProjectsList projectData={projectData} />
       </div>
       <Footer slanted={true} />
     </div>

@@ -7,58 +7,26 @@ interface Competition {
   id: number;
   title: string;
   year: string;
-  image: string;
+  image: {
+    url: string;
+  }
   description?: string;
 }
 
-const CompetitionsGrid: React.FC = () => {
-  const competitions: Competition[] = [
-    {
-      id: 1,
-      title: 'Summer Championship',
-      year: '2025',
-      image: '/about-gladiatos.webp',
-      description: 'Annual summer tournament featuring top gladiators'
-    },
-    {
-      id: 2,
-      title: 'Winter Games',
-      year: '2024',
-      image: '/about-gladiatos.webp',
-      description: 'Elite winter competition'
-    },
-    {
-      id: 3,
-      title: 'Spring Tournament',
-      year: '2024',
-      image: '/about-gladiatos.webp',
-      description: 'Regional championship event'
-    },
-    {
-      id: 4,
-      title: 'Autumn Classic',
-      year: '2023',
-      image: '/about-gladiatos.webp',
-      description: 'Traditional autumn competition'
-    },
-    {
-      id: 5,
-      title: 'Autumn Classic',
-      year: '2023',
-      image: '/about-gladiatos.webp',
-      description: 'Traditional autumn competition'
-    }
-  ];
+interface CompetitionProps {
+  competitionData: Competition[];
+}
 
+const CompetitionsGrid: React.FC<CompetitionProps> = ({ competitionData }) => {
   return (
     <section className="competitions-section px-2 py-16">
       <div className="container mx-auto">
         {/* Grid Layout */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-3">
-          {competitions.map((competition, index) => (
+          {competitionData.map((competition, index) => (
             <motion.div
               key={competition.id}
-              className={`competition-card group relative overflow-hidden rounded-sm ${index === competitions.length - 1
+              className={`competition-card group relative overflow-hidden rounded-sm ${index === competitionData.length - 1 && index % 2 === 0
                 ? 'md:col-span-3 md:min-h-[400px]'
                 : index % 4 === 0
                   ? 'md:col-span-2 md:row-span-2 md:min-h-[500px]'
@@ -77,7 +45,7 @@ const CompetitionsGrid: React.FC = () => {
               {/* Background Image */}
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                style={{ backgroundImage: `url(${competition.image})` }}
+                style={{ backgroundImage: `url(${competition.image.url})` }}
               >
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/40 to-transparent" />
               </div>
@@ -93,7 +61,7 @@ const CompetitionsGrid: React.FC = () => {
 
                 {/* Info and Description */}
                 <div className="space-y-3">
-                  <h3 className="text-2xl md:text-4xl font-semibold text-foreground">
+                  <h3 className="text-2xl md:text-4xl font-bold text-primary">
                     {competition.title}
                   </h3>
 

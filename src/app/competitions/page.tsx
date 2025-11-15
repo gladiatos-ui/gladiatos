@@ -2,37 +2,38 @@ import HeroPage from '@/components/HeroPage';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CompetitionsGrid from '@/components/CompetitionsGrid';
-// import { GraphQLClient, gql } from 'graphql-request';
+import { GraphQLClient, gql } from 'graphql-request';
 
-// const endpoint = 'https://graphql.datocms.com/';
-// const client = new GraphQLClient(endpoint, {
-//   headers: {
-//     Authorization: `Bearer ${process.env.DATOCMS_API_KEY}`,
-//   },
-// });
+const endpoint = 'https://graphql.datocms.com/';
+const client = new GraphQLClient(endpoint, {
+  headers: {
+    Authorization: `Bearer ${process.env.DATOCMS_API_KEY}`,
+  },
+});
 
-// async function getCompetitionData() {
-//   const response = await client.request(
-//     gql`
-//       {
-//         competition {
-//           competition {
-//             id
-//             title
-//             year
-//             image {
-//               url
-//             }
-//             description
-//           }
-//         }
-//       }
-//     `
-//   );
-//   return response.competition;
-// }
+async function getCompetitionData() {
+  const response = await client.request(
+    gql`
+      {
+        competition {
+          competition {
+            id
+            title
+            year
+            image {
+              url
+            }
+            description
+          }
+        }
+      }
+    `
+  );
+  return response.competition.competition;
+}
 
-function Competitions() {
+async function Competitions() {
+  const competitionData = await getCompetitionData();
   return (
     <div className="overflow-x-hidden">
       <Navbar />
@@ -44,7 +45,7 @@ function Competitions() {
         bgColor='bg-background'
       />
       <div id="competitions">
-        <CompetitionsGrid />
+        <CompetitionsGrid competitionData={competitionData} />
       </div>
       <Footer slanted={true} />
     </div>

@@ -5,33 +5,19 @@ import { motion } from 'motion/react';
 
 interface TeamMember {
   name: string;
-  image: string;
+  image: {
+    url: string;
+  };
 }
 
-const teamData = {
-  managerial: [
-    { name: "Raditya Danendra", image: "/danen.webp" },
-    { name: "Priapta", image: "/apta.webp" },
-  ],
-  programming: [
-    { name: "Haidar Ghifari", image: "/haidarghi.webp" },
-    { name: "Bryan Herdianto", image: "/bryan.webp" },
-    { name: "Mohammad Ariq", image: "/ariq.webp" },
-    { name: "Andi", image: "/andi.webp" },
-    { name: "Azka", image: "/azka.webp" },
-  ],
-  electrical: [
-    { name: "Vito Madani", image: "/vito.webp" },
-    { name: "Kenzi", image: "/kenzi.webp" },
-    { name: "Benintya Farrel", image: "/ben.webp" },
-  ],
-  mechanical: [
-    { name: "Raffa Kharisma", image: "/raffa.webp" },
-    { name: "Mikhail", image: "/mikhail.webp" },
-    { name: "Haidar Fatih", image: "/haidarfat.webp" },
-    { name: "Sheri", image: "/sher.webp" },
-  ],
-};
+interface TeamProps {
+  teamData: {
+    managerial: TeamMember[];
+    programming: TeamMember[];
+    electrical: TeamMember[];
+    mechanical: TeamMember[];
+  };
+}
 
 interface TeamSectionProps {
   title: string;
@@ -68,7 +54,7 @@ function TeamSection({ title, members, bgColor }: TeamSectionProps) {
               {/* Image */}
               <div className="relative w-full max-w-xs">
                 <Image
-                  src={member.image}
+                  src={member.image.url}
                   alt={member.name}
                   width={1000}
                   height={1000}
@@ -89,7 +75,7 @@ function TeamSection({ title, members, bgColor }: TeamSectionProps) {
   );
 }
 
-function OurTeam() {
+function OurTeam({ teamData }: TeamProps) {
   return (
     <div className="w-full pb-20">
       <TeamSection

@@ -6,7 +6,18 @@ import Link from 'next/link';
 import ArrowLink from './ArrowLink';
 import styled from 'styled-components';
 
-function ContactHero() {
+interface ContactData {
+    email: string;
+    phoneNumber: string;
+}
+
+interface ContactProps {
+    contactData: ContactData;
+}
+
+function ContactHero({ contactData }: ContactProps) {
+    const { email, phoneNumber } = contactData;
+
     const contactMethods = [
         {
             icon: (
@@ -14,10 +25,10 @@ function ContactHero() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
             ),
-            title: "Call us at 1-866-983-8582",
+            title: "Call us at " + phoneNumber,
             subtitle: "We're here to assist you!",
             linkText: "Call us",
-            href: "tel:1-866-983-8582"
+            href: "tel:" + phoneNumber
         },
         {
             icon: (
@@ -28,7 +39,7 @@ function ContactHero() {
             title: "Send us an email",
             subtitle: "We'd love to hear from you!",
             linkText: "Email us",
-            href: "mailto:gladiatos@gmail.com"
+            href: "mailto:" + email
         }
     ];
 

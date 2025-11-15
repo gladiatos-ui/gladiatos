@@ -7,43 +7,18 @@ import { motion } from "motion/react";
 interface Projects {
     id: number;
     title: string;
-    image: string;
+    image: {
+        url: string;
+    }
     description?: string;
 }
 
-function ProjectsList() {
-    const projects: Projects[] = [
-        {
-            id: 1,
-            title: 'KRSBI 2024 Championship',
-            image: '/about-gladiatos.webp',
-            description: 'Our team competed in the **national robotics championship** using advanced **AI vision systems** and **dynamic motion control** to secure a top placement against universities nationwide.'
-        },
-        {
-            id: 2,
-            title: 'Humanoid Soccer Bot Development',
-            image: '/about-gladiatos.webp',
-            description: 'Developed a fully autonomous **humanoid robot** capable of playing soccer, featuring **real-time object detection**, **path planning algorithms**, and **bipedal locomotion** systems.'
-        },
-        {
-            id: 3,
-            title: 'International RoboCup Competition',
-            image: '/about-gladiatos.webp',
-            description: 'Represented Indonesia at the **RoboCup International** tournament, showcasing our **cutting-edge robotics technology** and competing against elite teams from around the world.'
-        },
-        {
-            id: 4,
-            title: 'Vision System Upgrade',
-            image: '/about-gladiatos.webp',
-            description: 'Implemented a state-of-the-art **computer vision system** using **machine learning** and **OpenCV** to improve ball detection accuracy by 40% and enhance gameplay performance.'
-        },
-        {
-            id: 5,
-            title: 'Community Robotics Workshop',
-            image: '/about-gladiatos.webp',
-            description: 'Organized a comprehensive **robotics workshop** for high school students, teaching fundamentals of **programming**, **electronics**, and **mechanical design** to inspire the next generation.'
-        }
-    ];
+interface ProjectsListProps {
+    projectData: Projects[];
+}
+
+function ProjectsList({ projectData }: ProjectsListProps) {
+    const projects = projectData;
 
     // Parse description with **highlighted text**
     const renderDescription = (description: string) => {
@@ -82,7 +57,7 @@ function ProjectsList() {
                                 >
                                     <div className="relative w-full h-full aspect-[4/3]">
                                         <Image
-                                            src="/about-gladiatos.webp"
+                                            src={project.image.url}
                                             alt="Our Team"
                                             fill
                                             className="object-contain"
