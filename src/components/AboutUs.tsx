@@ -34,6 +34,9 @@ function AboutUs() {
                                 fill
                                 className="object-contain"
                                 draggable={false}
+                                sizes="(max-width: 768px) 100vw, 50vw"
+                                loading="lazy"
+                                decoding="async"
                             />
                         </div>
                     </motion.div>

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Inter, Orbitron } from "next/font/google";
 import StyledComponentsRegistry from "@/lib/registry";
 
 export const metadata: Metadata = {
@@ -33,6 +33,11 @@ export const metadata: Metadata = {
 };
 
 const inter = Inter({ subsets: ["latin"] });
+const orbitron = Orbitron({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-orbitron",
+});
 
 export default function RootLayout({
   children,
@@ -41,7 +46,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} bg-background text-text`}>
+      <body className={`${inter.className} ${orbitron.variable} bg-background text-text`}>
         <StyledComponentsRegistry>
           {children}
         </StyledComponentsRegistry>

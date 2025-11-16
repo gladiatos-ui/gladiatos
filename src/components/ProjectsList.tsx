@@ -73,9 +73,9 @@ function ProjectsList({ projectData }: ProjectsListProps) {
                                     viewport={{ once: true, amount: 0.2 }}
                                     transition={{ duration: 0.6, delay: 0.4 }}
                                 >
-                                    <h3 className="text-center text-3xl md:text-4xl font-semibold text-foreground">
+                                    <h2 className="text-center text-3xl md:text-4xl font-semibold text-foreground">
                                         {project.title}
-                                    </h3>
+                                    </h2>
                                     <p className="text-center text-text-muted text-lg">
                                         {renderDescription(project.description || '')}
                                     </p>

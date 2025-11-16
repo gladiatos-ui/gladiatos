@@ -74,7 +74,7 @@ function Footer({ slanted }: FooterProps) {
 
                     {/* Social Media Icons */}
                     <div className="flex gap-4 justify-center mb-12">
-                        <Link href="https://instagram.com/gladiatos.ui" target="_blank" rel="noopener noreferrer">
+                        <Link href="https://instagram.com/gladiatos.ui" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
                             <SocialButton>
                                 <button className="button">
                                     <span className="shadow" />
@@ -88,7 +88,7 @@ function Footer({ slanted }: FooterProps) {
                             </SocialButton>
                         </Link>
 
-                        <Link href="https://linkedin.com/company/gladiatos" target="_blank" rel="noopener noreferrer">
+                        <Link href="https://linkedin.com/company/gladiatos" target="_blank" rel="noopener noreferrer" aria-label="Connect with us on LinkedIn">
                             <SocialButton>
                                 <button className="button">
                                     <span className="shadow" />
@@ -102,7 +102,7 @@ function Footer({ slanted }: FooterProps) {
                             </SocialButton>
                         </Link>
 
-                        <Link href="https://github.com/Gladiatos-Programming" target="_blank" rel="noopener noreferrer">
+                        <Link href="https://github.com/Gladiatos-Programming" target="_blank" rel="noopener noreferrer" aria-label="View our code on GitHub">
                             <SocialButton>
                                 <button className="button">
                                     <span className="shadow" />

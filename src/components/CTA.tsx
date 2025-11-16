@@ -64,7 +64,7 @@ function CTA() {
                   Access past strategies to start competing with us.
                 </p>
                 <Link href="/competitions">
-                  <ArrowLink text="Learn More" />
+                  <ArrowLink text="See Competitions" />
                 </Link>
               </div>
             </motion.div>

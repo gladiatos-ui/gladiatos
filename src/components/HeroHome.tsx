@@ -142,6 +142,7 @@ function HeroHome() {
                         className="object-contain object-bottom dark:brightness-90 dark:contrast-110 dark:saturate-90"
                         loading="eager"
                         draggable={false}
+                        fetchPriority="high"
                     />
                 </div>
 
