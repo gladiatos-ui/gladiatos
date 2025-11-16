@@ -6,7 +6,8 @@ import { GraphQLClient, gql } from 'graphql-request';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "FAQ"
+  title: "FAQ",
+  description: "Find answers to common questions about Gladiatos UI, our robotics projects, competitions, and research activities."
 };
 
 const endpoint = 'https://graphql.datocms.com/';

@@ -6,7 +6,8 @@ import { GraphQLClient, gql } from 'graphql-request';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Competitions"
+  title: "Competitions",
+  description: "Learn about the robotics competitions we participate in, including KRSBI Humanoid, robotics challenges, and international AI-driven robotics events."
 };
 
 const endpoint = 'https://graphql.datocms.com/';

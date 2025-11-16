@@ -6,7 +6,8 @@ import { GraphQLClient, gql } from 'graphql-request';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Projects"
+  title: "Projects",
+  description: "Explore our robotics projects, including humanoid robot development, autonomous soccerbots, AI perception systems, and competition-ready robot control."
 };
 
 const endpoint = 'https://graphql.datocms.com/';

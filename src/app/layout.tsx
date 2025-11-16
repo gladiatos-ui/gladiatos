@@ -8,10 +8,28 @@ export const metadata: Metadata = {
     default: "Gladiatos",
     template: "%s - Gladiatos"
   },
-  description: "Humanoid robotics team from Tim Robotika Universitas Indonesia",
+  description: "Gladiatos UI develops advanced humanoid robots and AI-powered autonomous soccerbots, combining real-time perception, dynamic control, and innovation in robotics.",
   twitter: {
     card: "summary_large_image"
-  }
+  },
+  keywords: [
+    "humanoid robots",
+    "autonomous soccerbots",
+    "robotics team",
+    "AI robotics",
+    "robot perception",
+    "dynamic robot control",
+    "robotics innovation",
+    "Gladiatos UI",
+    "Tim Robotika UI",
+    "Universitas Indonesia robotics",
+    "soccer robotics",
+    "autonomous robot systems",
+    "robotics competitions",
+    "KRSBI",
+    "robot intelligence",
+    "robotics research"
+  ]
 };
 
 const inter = Inter({ subsets: ["latin"] });
