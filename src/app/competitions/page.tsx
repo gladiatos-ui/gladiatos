@@ -3,6 +3,11 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import CompetitionsGrid from '@/components/CompetitionsGrid';
 import { GraphQLClient, gql } from 'graphql-request';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Competitions"
+};
 
 const endpoint = 'https://graphql.datocms.com/';
 const client = new GraphQLClient(endpoint, {

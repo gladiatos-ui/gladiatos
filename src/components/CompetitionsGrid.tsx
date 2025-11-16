@@ -51,7 +51,7 @@ const CompetitionsGrid: React.FC<CompetitionProps> = ({ competitionData }) => {
               </div>
 
               {/* Content Overlay */}
-              <div className="relative z-10 h-full p-6 md:p-8 flex flex-col justify-between">
+              <div className="relative z-10 h-full p-4 flex flex-col justify-between">
                 {/* Year Badge */}
                 <div className="flex justify-between items-start">
                   <span className="inline-block bg-primary text-white px-3 py-1 rounded-md text-xs font-semibold">

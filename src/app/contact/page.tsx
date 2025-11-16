@@ -2,6 +2,11 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ContactHero from '@/components/ContactHero';
 import { GraphQLClient, gql } from 'graphql-request';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Contact"
+};
 
 const endpoint = 'https://graphql.datocms.com/';
 const client = new GraphQLClient(endpoint, {

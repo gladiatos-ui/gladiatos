@@ -3,6 +3,11 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ProjectsList from '@/components/ProjectsList';
 import { GraphQLClient, gql } from 'graphql-request';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Projects"
+};
 
 const endpoint = 'https://graphql.datocms.com/';
 const client = new GraphQLClient(endpoint, {

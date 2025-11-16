@@ -4,9 +4,14 @@ import { Inter } from "next/font/google";
 import StyledComponentsRegistry from "@/lib/registry";
 
 export const metadata: Metadata = {
-  title: "Gladiatos UI",
+  title: {
+    default: "Gladiatos",
+    template: "%s - Gladiatos"
+  },
   description: "Humanoid robotics team from Tim Robotika Universitas Indonesia",
-  icons: "/logo.png"
+  twitter: {
+    card: "summary_large_image"
+  }
 };
 
 const inter = Inter({ subsets: ["latin"] });

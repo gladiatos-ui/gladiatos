@@ -44,7 +44,7 @@ function ContactHero({ contactData }: ContactProps) {
     ];
 
     return (
-        <section className="relative w-full h-[60rem] py-20 px-4 sm:px-8 flex justify-center items-center overflow-hidden">
+        <section className="relative w-full h-[55rem] py-20 px-4 sm:px-8 flex justify-center items-center overflow-hidden">
             {/* Background Video */}
             <video
                 autoPlay
@@ -78,7 +78,7 @@ function ContactHero({ contactData }: ContactProps) {
                             className="rounded-sm p-4 md:p-8"
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
                         >
                             <div className="flex items-start gap-6">
                                 {/* Icon */}
