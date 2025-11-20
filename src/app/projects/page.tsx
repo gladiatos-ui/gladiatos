@@ -7,7 +7,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Explore our robotics projects, including humanoid robot development, autonomous soccerbots, AI perception systems, and competition-ready robot control."
+  description: "Explore our robotics projects, including humanoid robot development, autonomous soccerbots, AI perception systems, and competition-ready robot control.",
+  alternates: {
+    canonical: "/projects"
+  }
 };
 
 const endpoint = 'https://graphql.datocms.com/';

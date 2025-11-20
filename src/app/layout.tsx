@@ -4,6 +4,7 @@ import { Inter, Orbitron } from "next/font/google";
 import StyledComponentsRegistry from "@/lib/registry";
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://www.gladiatosui.com"),
   title: {
     default: "Gladiatos",
     template: "%s - Gladiatos"
@@ -29,7 +30,10 @@ export const metadata: Metadata = {
     "KRSBI",
     "robot intelligence",
     "robotics research"
-  ]
+  ],
+  alternates: {
+    canonical: "/"
+  }
 };
 
 const inter = Inter({ subsets: ["latin"] });

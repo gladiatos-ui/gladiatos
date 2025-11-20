@@ -7,7 +7,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: "Competitions",
-  description: "Learn about the robotics competitions we participate in, including KRSBI Humanoid, robotics challenges, and international AI-driven robotics events."
+  description: "Learn about the robotics competitions we participate in, including KRSBI Humanoid, robotics challenges, and international AI-driven robotics events.",
+  alternates: {
+    canonical: "/competitions"
+  }
 };
 
 const endpoint = 'https://graphql.datocms.com/';

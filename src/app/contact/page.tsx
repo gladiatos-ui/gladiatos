@@ -6,7 +6,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with Gladiatos UI for inquiries, collaborations, sponsorships, and robotics-related opportunities."
+  description: "Get in touch with Gladiatos UI for inquiries, collaborations, sponsorships, and robotics-related opportunities.",
+  alternates: {
+    canonical: "/contact"
+  }
 };
 
 const endpoint = 'https://graphql.datocms.com/';

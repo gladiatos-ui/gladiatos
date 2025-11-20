@@ -7,7 +7,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: "Team",
-  description: "Meet the Gladiatos UI robotics team from Universitas Indonesia, specializing in humanoid robots, autonomous soccerbots, and AI-driven robotics research."
+  description: "Meet the Gladiatos UI robotics team from Universitas Indonesia, specializing in humanoid robots, autonomous soccerbots, and AI-driven robotics research.",
+  alternates: {
+    canonical: "/team"
+  }
 };
 
 const endpoint = 'https://graphql.datocms.com/';

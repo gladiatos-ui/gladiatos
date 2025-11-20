@@ -7,7 +7,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: "FAQ",
-  description: "Find answers to common questions about Gladiatos UI, our robotics projects, competitions, and research activities."
+  description: "Find answers to common questions about Gladiatos UI, our robotics projects, competitions, and research activities.",
+  alternates: {
+    canonical: "/faq"
+  }
 };
 
 const endpoint = 'https://graphql.datocms.com/';
