@@ -6,7 +6,7 @@ import { motion } from "motion/react";
 function AboutUs() {
     return (
         <div className="relative w-full">
-            <div className="relative w-full h-[6rem]">
+            <div className="relative w-full h-[6rem] lg:h-[8rem] xl:h-[10rem] 2xl:h-[13rem]">
                 <Image
                     src="/hero-break.svg"
                     alt="Section divider"

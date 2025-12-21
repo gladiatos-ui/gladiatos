@@ -173,7 +173,7 @@ function HeroPage({ title, description, buttonText, buttonHref, bgColor }: HeroP
                     </div>
                 </div>
             </div>
-            <div className={`relative w-full h-[6rem] ${bgColor}`}>
+            <div className={`relative w-full h-[6rem] lg:h-[8rem] xl:h-[10rem] 2xl:h-[13rem] ${bgColor}`}>
                 <Image
                     src="/hero-break.svg"
                     alt="Section divider"
