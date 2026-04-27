@@ -65,6 +65,7 @@ function Footer({ slanted }: FooterProps) {
                                 <li><Link href="/">Home</Link></li>
                                 <li><Link href="/projects">Projects</Link></li>
                                 <li><Link href="/competitions">Competitions</Link></li>
+                                <li><Link href="/sponsors">Sponsors</Link></li>
                                 <li><Link href="/team">Team</Link></li>
                                 <li><Link href="/faq">FAQ</Link></li>
                                 <li><Link href="/contact">Contact</Link></li>

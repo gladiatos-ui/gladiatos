@@ -4,6 +4,7 @@ import AboutUs from '@/components/AboutUs';
 import Quote from '@/components/Quote';
 import CTA from '@/components/CTA';
 import Footer from '@/components/Footer';
+import SponsorsMarquee from '@/components/SponsorsMarquee'; 
 import { GraphQLClient, gql } from 'graphql-request';
 
 const endpoint = 'https://graphql.datocms.com/';
@@ -13,7 +14,7 @@ const client = new GraphQLClient(endpoint, {
   },
 });
 
-async function getQuoteData() {
+async function getHomepageData() {
   const response = await client.request(
     gql`
       {
@@ -22,22 +23,33 @@ async function getQuoteData() {
           quote
           year
         }
+        allSponsors {
+          name
+          url
+          logo {
+            url
+          }
+        }
       }
     `
   );
-  return response.quote;
+  return response;
 }
 
 export default async function Home() {
-  const quoteData = await getQuoteData();
+  const data = await getHomepageData();
+  
+
   return (
     <div className="overflow-x-hidden">
       <Navbar />
       <HeroHome />
       <AboutUs />
-      <Quote quoteData={quoteData} />
-      <CTA />
-      <Footer slanted={true} />
+      <Quote quoteData={data.quote} />
+      <CTA /> 
+      <SponsorsMarquee sponsors={data.allSponsors} />
+      
+      <Footer slanted={true} /> 
     </div>
   );
 }

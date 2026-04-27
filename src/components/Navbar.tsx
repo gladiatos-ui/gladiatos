@@ -61,6 +61,7 @@ function Navbar() {
           <li><Link href="/">Home</Link></li>
           <li><Link href="/projects">Projects</Link></li>
           <li><Link href="/competitions">Competitions</Link></li>
+          <li><Link href="/sponsors">Sponsors</Link></li>
           <li><Link href="/team">Team</Link></li>
           <li><Link href="/faq">FAQ</Link></li>
         </ul>
@@ -98,6 +99,11 @@ function Navbar() {
                 Competitions
               </Link>
             </li>
+            <li>
+            <Link href="/sponsors" onClick={closeMobileMenu}>
+              Sponsors
+            </Link>
+          </li> 
             <li>
               <Link href="/team" onClick={closeMobileMenu}>
                 Team
