@@ -1,26 +1,26 @@
 "use client";
 
-import { useState, useEffect, useId } from 'react';
+import { useEffect, useState, useId } from 'react';
+import { useTheme } from 'next-themes';
 import styled from 'styled-components';
 
 const ThemeToggle = () => {
   const uniqueId = useId();
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const { resolvedTheme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    // Apply theme to document
-    document.documentElement.classList.remove('light', 'dark');
-    document.documentElement.classList.add(theme);
-  }, [theme]);
+    setMounted(true);
+  }, []);
 
   const handleToggle = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
+    setTheme(resolvedTheme === 'dark' ? 'light' : 'dark');
   };
 
-  const isDark = theme === 'dark';
+  const isDark = mounted && resolvedTheme === 'dark';
 
   return (
-    <StyledWrapper $isDark={isDark}>
+    <StyledWrapper $isDark={isDark} $mounted={mounted}>
       <label htmlFor={`themeToggle-${uniqueId}`} className="themeToggle st-sunMoonThemeToggleBtn">
         <input
           type="checkbox"
@@ -28,6 +28,7 @@ const ThemeToggle = () => {
           className="themeToggleInput"
           checked={isDark}
           onChange={handleToggle}
+          disabled={!mounted}
         />
         <svg width={18} height={18} viewBox="0 0 20 20" fill="currentColor" stroke="none">
           <mask id={uniqueId}>
@@ -49,12 +50,16 @@ const ThemeToggle = () => {
   );
 }
 
-const StyledWrapper = styled.div<{ $isDark: boolean }>`
+const StyledWrapper = styled.div<{ $isDark: boolean; $mounted: boolean }>`
   .themeToggle {
     color: #ed1c24;
     width: 2em;
     display: inline-block;
   }
+
+  opacity: ${props => props.$mounted ? 1 : 0};
+  pointer-events: ${props => props.$mounted ? 'auto' : 'none'};
+  transition: opacity 0.3s ease;
 
   .st-sunMoonThemeToggleBtn {
     position: relative;

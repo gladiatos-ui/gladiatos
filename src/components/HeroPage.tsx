@@ -5,6 +5,7 @@ import Button from "./Button";
 import Image from "next/image";
 import { motion } from "motion/react";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 
 interface HeroPageProps {
     title: string;
@@ -18,7 +19,7 @@ function HeroPage({ title, description, buttonText, buttonHref, bgColor }: HeroP
     const vantaRef = useRef<HTMLDivElement>(null);
     const vantaEffect = useRef<{ destroy: () => void } | null>(null);
     const [vantaLoaded, setVantaLoaded] = useState(false);
-    const [theme, setTheme] = useState<'light' | 'dark'>('light');
+    const { resolvedTheme } = useTheme();
 
     // Parse description with **highlighted text**
     const renderDescription = () => {
@@ -31,26 +32,6 @@ function HeroPage({ title, description, buttonText, buttonHref, bgColor }: HeroP
             return <span key={index}>{part}</span>;
         });
     };
-
-    useEffect(() => {
-        // Detect theme from document and watch for changes
-        const detectTheme = () => {
-            const currentTheme = document.documentElement.classList.contains('dark') ? 'dark' : 'light';
-            setTheme(currentTheme);
-        };
-
-        // Initial detection
-        detectTheme();
-
-        // Watch for theme changes
-        const observer = new MutationObserver(detectTheme);
-        observer.observe(document.documentElement, {
-            attributes: true,
-            attributeFilter: ['class']
-        });
-
-        return () => observer.disconnect();
-    }, []);
 
     useEffect(() => {
         // Load Three.js and Vanta.js scripts dynamically
@@ -78,7 +59,7 @@ function HeroPage({ title, description, buttonText, buttonHref, bgColor }: HeroP
                 }
 
                 // Detect theme and set Vanta backgroundColor
-                const isDark = theme === 'dark';
+                const isDark = resolvedTheme === 'dark';
                 const vantaBgColor = isDark ? 0x121212 : 0xffffff;
 
                 // Initialize Vanta and store reference
@@ -117,7 +98,7 @@ function HeroPage({ title, description, buttonText, buttonHref, bgColor }: HeroP
                 vantaEffect.current.destroy();
             }
         };
-    }, [theme]); // Re-run when theme changes
+    }, [resolvedTheme]);
 
     return (
         <>
