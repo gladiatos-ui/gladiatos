@@ -84,7 +84,7 @@ function Quote({ quoteData }: QuoteProps) {
 					</motion.p>
 					{/* Title */}
 					<motion.p
-						className="text-text-muted text-sm md:text-base font-medium tracking-[0.15em] uppercase"
+						className="text-sm md:text-base font-medium tracking-[0.15em] uppercase"
 						initial={{ opacity: 0 }}
 						whileInView={{ opacity: 1 }}
 						viewport={{ once: true }}

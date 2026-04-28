@@ -66,7 +66,7 @@ const CompetitionsGrid: React.FC<CompetitionProps> = ({ competitionData }) => {
 										{competition.title}
 									</h3>
 
-									<p className="text-text-muted text-sm md:text-base line-clamp-2">
+									<p className="text-sm md:text-base line-clamp-2">
 										{competition.description}
 									</p>
 								</div>

@@ -19,7 +19,6 @@
 	--primary: #ed1c24;
 	--secondary: #c41920;
 	--text: #3a3a3a;
-	--text-muted: #737373;
 }
 
 .dark {
@@ -29,7 +28,6 @@
 	--primary: #ed1c24;
 	--secondary: #c41920;
 	--text: #d4d4d4;
-	--text-muted: #a3a3a3;
 }
 
 * {

@@ -80,7 +80,7 @@ function ProjectsList({ projectData }: ProjectsListProps) {
 									<h2 className="text-center text-3xl md:text-4xl font-semibold text-foreground">
 										{project.title}
 									</h2>
-									<p className="text-center text-text-muted text-lg">
+									<p className="text-center text-lg">
 										{renderDescription(project.description || "")}
 									</p>
 								</motion.div>

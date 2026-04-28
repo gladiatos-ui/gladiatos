@@ -159,7 +159,7 @@ function Footer({ slanted }: FooterProps) {
 
 					{/* Copyright */}
 					<div className="text-center">
-						<p className="text-md text-text-muted">
+						<p className="text-md">
 							&copy; {new Date().getFullYear()} Gladiatos. All rights reserved.
 						</p>
 					</div>

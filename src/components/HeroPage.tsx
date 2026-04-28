@@ -25,7 +25,12 @@ function HeroPage({
 	const vantaRef = useRef<HTMLDivElement>(null);
 	const vantaEffect = useRef<{ destroy: () => void } | null>(null);
 	const [vantaLoaded, setVantaLoaded] = useState(false);
+	const [mounted, setMounted] = useState(false);
 	const { resolvedTheme } = useTheme();
+
+	useEffect(() => {
+		setMounted(true);
+	}, []);
 
 	// Parse description with **highlighted text**
 	const renderDescription = () => {
@@ -44,6 +49,8 @@ function HeroPage({
 	};
 
 	useEffect(() => {
+		if (!mounted) return;
+
 		// Load Three.js and Vanta.js scripts dynamically
 		const loadScripts = async () => {
 			if (typeof window !== "undefined") {
@@ -110,7 +117,7 @@ function HeroPage({
 				vantaEffect.current.destroy();
 			}
 		};
-	}, [resolvedTheme]);
+	}, [resolvedTheme, mounted]);
 
 	return (
 		<>
