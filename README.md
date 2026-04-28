@@ -4,13 +4,13 @@ Official website for Gladiatos, a competitive humanoid soccer robotics team from
 
 ![Gladiatos Logo](public/logo.png)
 
-## 🤖 About
+## About
 
 Gladiatos is dedicated to advancing humanoid robotics technology through competitive soccer robotics. This website showcases our projects, team members, competition history, and provides information about joining our team.
 
 **Live Site:** [https://gladiatosui.com](https://gladiatosui.com)
 
-## 🚀 Tech Stack
+## Tech Stack
 
 - **Framework:** [Next.js 15](https://nextjs.org) (React 19)
 - **Styling:** [Tailwind CSS](https://tailwindcss.com)
@@ -21,7 +21,7 @@ Gladiatos is dedicated to advancing humanoid robotics technology through competi
 - **Deployment:** [Vercel](https://vercel.com)
 - **Language:** TypeScript
 
-## 📁 Project Structure
+## Project Structure
 
 ```txt
 gladiatos_web/
@@ -63,7 +63,7 @@ gladiatos_web/
 └── package.json                # Dependencies
 ```
 
-## 🛠️ Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -74,28 +74,28 @@ gladiatos_web/
 
 1. Clone the repository:
 
-    ```bash
-    git clone https://github.com/gladiatos-ui/gladiatos.git
-    cd gladiatos_web
-    ```
+   ```bash
+   git clone https://github.com/gladiatos-ui/gladiatos.git
+   cd gladiatos_web
+   ```
 
 2. Install dependencies:
 
-    ```bash
-    npm install
-    ```
+   ```bash
+   npm install
+   ```
 
 3. Create a `.env.local` file:
 
-    ```env
-    DATOCMS_API_KEY=your_datocms_api_key_here
-    ```
+   ```env
+   DATOCMS_API_KEY=your_datocms_api_key_here
+   ```
 
 4. Run the development server:
 
-    ```bash
-    npm run dev
-    ```
+   ```bash
+   npm run dev
+   ```
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser
 
@@ -106,7 +106,7 @@ npm run build
 npm start
 ```
 
-## 🎨 Features
+## Features
 
 - **Responsive Design** - Mobile-first approach with Tailwind CSS
 - **Dark/Light Mode** - Theme toggle with persistent state
@@ -117,7 +117,7 @@ npm start
 - **Accessibility** - ARIA labels, semantic HTML, keyboard navigation
 - **Performance** - Next.js Image optimization, font optimization, lazy loading
 
-## 📝 Content Management
+## Content Management
 
 Content is managed through DatoCMS. The following models are used:
 
@@ -128,7 +128,7 @@ Content is managed through DatoCMS. The following models are used:
 
 GraphQL queries are located in the respective page files (`src/app/*/page.tsx`).
 
-## 🌐 Environment Variables
+## Environment Variables
 
 Required environment variables:
 
@@ -136,7 +136,7 @@ Required environment variables:
 DATOCMS_API_KEY=your_datocms_api_key
 ```
 
-## 🚢 Deployment
+## Deployment
 
 This project is deployed on Vercel with automatic deployments from the `main` branch.
 
@@ -148,31 +148,23 @@ This project is deployed on Vercel with automatic deployments from the `main` br
    - **CNAME Record (www):** Points to your Vercel deployment
 3. SSL certificates are automatically provisioned by Vercel
 
-## 📊 SEO & Analytics
+## SEO & Analytics
 
 - **Sitemap:** Automatically generated at `/sitemap.xml`
 - **Robots.txt:** Configured at `/robots.txt`
 - **Meta Tags:** Open Graph and Twitter Card support
 - **Structured Data:** JSON-LD for organization schema (recommended to add)
 
-## 📄 License
+## License
 
-Copyright © 2024 Gladiatos - Tim Robotika Universitas Indonesia. All rights reserved.
+Copyright © 2026 Gladiatos - Tim Robotika Universitas Indonesia. All rights reserved.
 
 This project is proprietary software. Unauthorized copying, modification, distribution, or use of this software, via any medium, is strictly prohibited without explicit written permission from the Gladiatos team.
 
-## 📞 Contact
+## Contact
 
 - **Website:** [https://gladiatosui.com](https://gladiatosui.com)
 - **Email:** <gladiatos@gmail.com>
 - **Instagram:** [@gladiatos.ui](https://instagram.com/gladiatos.ui)
 - **LinkedIn:** [Gladiatos](https://linkedin.com/company/gladiatos)
 - **GitHub:** [Gladiatos-Programming](https://github.com/Gladiatos-Programming)
-
-## 👥 Team
-
-Made with ❤️ by the Gladiatos team at Universitas Indonesia
-
----
-
-**Gladiatos** - Building the Future of Soccer Robotics 🤖⚽
