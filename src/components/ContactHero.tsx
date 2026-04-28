@@ -46,15 +46,22 @@ function ContactHero({ contactData }: ContactProps) {
     return (
         <section className="relative w-full h-[55rem] py-20 px-4 sm:px-8 flex justify-center items-center overflow-hidden">
             {/* Background Video */}
-            <video
-                autoPlay
-                muted
-                loop
-                playsInline
-                className="absolute inset-0 w-full h-full object-cover -z-10"
+            <motion.div
+                className="absolute inset-0 -z-10"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 1.5, ease: "easeOut" }}
             >
-                <source src="/video_wave_gladiatos.mp4" type="video/mp4" />
-            </video>
+                <video
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover"
+                >
+                    <source src="/video_wave_gladiatos.mp4" type="video/mp4" />
+                </video>
+            </motion.div>
 
             {/* Dark overlay for better text readability */}
             <div className="absolute inset-0 bg-background/30 -z-10" />
@@ -65,7 +72,7 @@ function ContactHero({ contactData }: ContactProps) {
                     className="text-[clamp(1.8rem,8vw,4rem)] lg:text-7xl font-orbitron text-primary font-bold text-center mb-6 md:mb-16"
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: 0.6, delay: 1 }}
                 >
                     Need More Help?
                 </motion.h2>
@@ -78,7 +85,7 @@ function ContactHero({ contactData }: ContactProps) {
                             className="rounded-sm p-4 md:p-8"
                             initial={{ opacity: 0, y: 30 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: 0.2 }}
+                            transition={{ duration: 0.5, delay: 1.3 }}
                         >
                             <div className="flex items-start gap-6">
                                 {/* Icon */}
@@ -117,6 +124,9 @@ const GlassCard = styled(motion.div)`
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.2);
+  will-change: transform;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
   transition: all 0.3s ease;
 
   /* Dark mode glassy effect */

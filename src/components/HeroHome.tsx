@@ -8,6 +8,7 @@ function HeroHome() {
     const vantaRef = useRef<HTMLDivElement>(null);
     const vantaEffect = useRef<{ destroy: () => void } | null>(null);
     const [vantaLoaded, setVantaLoaded] = useState(false);
+    const [imageLoaded, setImageLoaded] = useState(false);
     const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
     useEffect(() => {
@@ -139,10 +140,11 @@ function HeroHome() {
                         src="/robot-hero.webp"
                         alt="Hero background"
                         fill
-                        className="object-contain object-bottom dark:brightness-90 dark:contrast-110 dark:saturate-90"
+                        className={`object-contain object-bottom dark:brightness-90 dark:contrast-110 dark:saturate-90 transition-opacity duration-500 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
                         loading="eager"
                         draggable={false}
-                        fetchPriority="high"
+                        priority
+                        onLoad={() => setImageLoaded(true)}
                     />
                 </div>
 
