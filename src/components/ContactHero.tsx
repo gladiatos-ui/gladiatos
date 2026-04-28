@@ -133,6 +133,11 @@ function ContactHero({ contactData }: ContactProps) {
 }
 
 const GlassCard = styled(motion.div)`
+	/* iOS flicker fix */
+	-webkit-backface-visibility: hidden;
+	backface-visibility: hidden;
+	-webkit-transform: translate3d(0, 0, 0);
+
 	/* Glassy effect */
 	background: rgba(255, 255, 255, 0.3);
 	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
