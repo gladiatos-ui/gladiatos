@@ -90,8 +90,8 @@ function ContactHero({ contactData }: ContactProps) {
 				{/* Title */}
 				<motion.h2
 					className="text-[clamp(1.8rem,8vw,4rem)] lg:text-7xl font-orbitron text-primary font-bold text-center mb-6 md:mb-16"
-					initial={{ opacity: 0, y: 20 }}
-					animate={{ opacity: 1, y: 0 }}
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
 					transition={{ duration: 0.6, delay: 1 }}
 				>
 					Need More Help?
@@ -103,8 +103,8 @@ function ContactHero({ contactData }: ContactProps) {
 						<GlassCard
 							key={index}
 							className="rounded-sm p-4 md:p-8"
-							initial={{ opacity: 0, y: 30 }}
-							animate={{ opacity: 1, y: 0 }}
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
 							transition={{ duration: 0.5, delay: 1.3 }}
 						>
 							<div className="flex items-start gap-6">
@@ -139,9 +139,6 @@ const GlassCard = styled(motion.div)`
 	backdrop-filter: blur(10px);
 	-webkit-backdrop-filter: blur(10px);
 	border: 1px solid rgba(255, 255, 255, 0.2);
-	will-change: transform;
-	-webkit-transform: translateZ(0);
-	transform: translateZ(0);
 	transition: all 0.3s ease;
 
 	/* Dark mode glassy effect */
