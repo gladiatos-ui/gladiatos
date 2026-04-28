@@ -4,7 +4,6 @@ import React from "react";
 import { motion } from "motion/react";
 import Link from "next/link";
 import ArrowLink from "./ArrowLink";
-import styled from "styled-components";
 
 interface ContactData {
 	email: string;
@@ -100,9 +99,9 @@ function ContactHero({ contactData }: ContactProps) {
 				{/* Grid */}
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 					{contactMethods.map((method, index) => (
-						<GlassCard
+						<motion.div
 							key={index}
-							className="rounded-sm p-4 md:p-8"
+							className="rounded-sm p-4 md:p-6 bg-white/80 dark:bg-black/80 shadow-lg border border-white/20 dark:border-white/10 transition-all duration-300"
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							transition={{ duration: 0.5, delay: 1.3 }}
@@ -124,33 +123,12 @@ function ContactHero({ contactData }: ContactProps) {
 									</Link>
 								</div>
 							</div>
-						</GlassCard>
+						</motion.div>
 					))}
 				</div>
 			</div>
 		</section>
 	);
 }
-
-const GlassCard = styled(motion.div)`
-	/* iOS flicker fix */
-	-webkit-backface-visibility: hidden;
-	backface-visibility: hidden;
-	-webkit-transform: translate3d(0, 0, 0);
-
-	/* Glassy effect */
-	background: rgba(255, 255, 255, 0.3);
-	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-	backdrop-filter: blur(10px);
-	-webkit-backdrop-filter: blur(10px);
-	border: 1px solid rgba(255, 255, 255, 0.2);
-	transition: all 0.3s ease;
-
-	/* Dark mode glassy effect */
-	.dark & {
-		background: rgba(0, 0, 0, 0.3);
-		border: 1px solid rgba(255, 255, 255, 0.1);
-	}
-`;
 
 export default ContactHero;
