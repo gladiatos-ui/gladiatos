@@ -118,9 +118,7 @@ function ContactHero({ contactData }: ContactProps) {
 									<h3 className="text-md md:text-2xl font-semibold text-foreground mb-2">
 										{method.title}
 									</h3>
-									<p className="text-sm md:text-base mb-4">
-										{method.subtitle}
-									</p>
+									<p className="text-sm md:text-base mb-4">{method.subtitle}</p>
 									<Link href={method.href} className="inline-block">
 										<ArrowLink text={method.linkText} />
 									</Link>
