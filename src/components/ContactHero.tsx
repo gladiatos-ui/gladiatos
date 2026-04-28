@@ -85,26 +85,23 @@ function ContactHero({ contactData }: ContactProps) {
 			{/* Dark overlay for better text readability */}
 			<div className="absolute inset-0 bg-background/30 -z-10" />
 
-			<div className="max-w-6xl mx-auto relative z-10">
+			<motion.div
+				className="max-w-6xl mx-auto relative z-10"
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				transition={{ duration: 1, delay: 0.5, ease: "easeOut" }}
+			>
 				{/* Title */}
-				<motion.h2
-					className="text-[clamp(1.8rem,8vw,4rem)] lg:text-7xl font-orbitron text-primary font-bold text-center mb-6 md:mb-16"
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					transition={{ duration: 0.6, delay: 1 }}
-				>
+				<h2 className="text-[clamp(1.8rem,8vw,4rem)] lg:text-7xl font-orbitron text-primary font-bold text-center mb-6 md:mb-16">
 					Need More Help?
-				</motion.h2>
+				</h2>
 
 				{/* Grid */}
 				<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 					{contactMethods.map((method, index) => (
-						<motion.div
+						<div
 							key={index}
 							className="rounded-sm p-4 md:p-6 bg-white/80 dark:bg-black/80 shadow-lg border border-white/20 dark:border-white/10 transition-all duration-300"
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							transition={{ duration: 0.5, delay: 1.3 }}
 						>
 							<div className="flex items-start gap-6">
 								{/* Icon */}
@@ -123,10 +120,10 @@ function ContactHero({ contactData }: ContactProps) {
 									</Link>
 								</div>
 							</div>
-						</motion.div>
+						</div>
 					))}
 				</div>
-			</div>
+			</motion.div>
 		</section>
 	);
 }
