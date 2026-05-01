@@ -1,72 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import styled, { keyframes } from "styled-components";
-
-// Animasi berjalan tanpa henti
-const scroll = keyframes`
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); } 
-`;
-
-const MarqueeContainer = styled.div`
-  overflow: hidden;
-  white-space: nowrap;
-  position: relative;
-  width: 100%;
-  padding: 3rem 0;
-  background: ${({ theme }) => theme.background}; // Sesuaikan jika ada tema gelap/terang
-
-  /* Efek gradient di pinggir agar muncul/hilangnya smooth */
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    width: 150px;
-    height: 100%;
-    z-index: 2;
-  }
-
-  &::before {
-    left: 0;
-    background: linear-gradient(to right, var(--background-color) 0%, transparent 100%);
-  }
-
-  &::after {
-    right: 0;
-    background: linear-gradient(to left, var(--background-color) 0%, transparent 100%);
-  }
-`;
-
-const MarqueeContent = styled.div`
-  display: flex;
-  width: max-content;
-  animation: ${scroll} 30s linear infinite;
-  
-  &:hover {
-    animation-play-state: paused; /* Berhenti saat di-hover */
-  }
-`;
-
-const LogoWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 200px;
-  margin: 0 2rem;
-  filter: grayscale(100%); 
-  transition: filter 0.3s ease, transform 0.3s ease;
-
-  &:hover {
-    filter: grayscale(0%);
-    transform: scale(1.1);
-  }
-`;
 
 interface SponsorProps {
   sponsors: {
     name: string;
+    url?: string;
     logo: { url: string };
   }[];
 }
@@ -74,29 +13,73 @@ interface SponsorProps {
 export default function SponsorsMarquee({ sponsors }: SponsorProps) {
   if (!sponsors || sponsors.length === 0) return null;
 
-  // Duplikasi array agar animasinya looping tanpa terputus
-  const duplicatedSponsors = [...sponsors, ...sponsors];
+  const duplicated = [...sponsors, ...sponsors, ...sponsors, ...sponsors];
 
   return (
-    <section className="py-10 bg-background">
-      <div className="text-center mb-6">
-        <h3 className="text-2xl font-bold uppercase tracking-wider text-gray-500">Supported By</h3>
+    <section className="relative py-14 bg-background overflow-hidden">
+      {/* Label */}
+      <div className="flex items-center gap-4 max-w-7xl mx-auto px-6 mb-10">
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
+        <span className="font-orbitron text-[10px] tracking-[0.4em] uppercase text-text-muted whitespace-nowrap">
+          Supported By
+        </span>
+        <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
       </div>
-      <MarqueeContainer>
-        <MarqueeContent>
-          {duplicatedSponsors.map((sponsor, index) => (
-            <LogoWrapper key={index}>
-              <Image 
-                src={sponsor.logo.url} 
-                alt={sponsor.name} 
-                width={150} 
-                height={80} 
-                className="object-contain w-auto h-16" 
+
+      {/* Marquee track */}
+      <div className="relative w-full overflow-hidden">
+        {/* Fade left */}
+        <div
+          className="pointer-events-none absolute inset-y-0 left-0 w-40 z-10"
+          style={{ background: "linear-gradient(to right, var(--color-background, #ffffff) 0%, transparent 100%)" }}
+        />
+        {/* Fade right */}
+        <div
+          className="pointer-events-none absolute inset-y-0 right-0 w-40 z-10"
+          style={{ background: "linear-gradient(to left, var(--color-background, #ffffff) 0%, transparent 100%)" }}
+        />
+
+        {/*
+          translateX(-25%) karena duplikasi 4x.
+          Animasi dari 0 ke -25% = tepat satu set sponsor, lalu reset seamless.
+        */}
+        <div
+          className="flex w-max"
+          style={{ animation: "marquee-scroll 30s linear infinite" }}
+          onMouseEnter={(e) => {
+            (e.currentTarget as HTMLElement).style.animationPlayState = "paused";
+          }}
+          onMouseLeave={(e) => {
+            (e.currentTarget as HTMLElement).style.animationPlayState = "running";
+          }}
+        >
+          {duplicated.map((sponsor, idx) => (
+            <a
+              key={idx}
+              href={sponsor.url ?? "#"}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={sponsor.name}
+              className="group flex items-center justify-center mx-12 w-[150px] h-[70px] shrink-0"
+            >
+              <Image
+                src={sponsor.logo.url}
+                alt={sponsor.name}
+                width={150}
+                height={70}
+                className="object-contain w-full h-full transition-all duration-300 opacity-70 group-hover:opacity-100 group-hover:scale-105"
               />
-            </LogoWrapper>
+            </a>
           ))}
-        </MarqueeContent>
-      </MarqueeContainer>
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes marquee-scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-25%); }
+        }
+      `}</style>
     </section>
   );
 }

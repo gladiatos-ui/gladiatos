@@ -46,10 +46,9 @@ export default async function Home() {
       <HeroHome />
       <AboutUs />
       <Quote quoteData={data.quote} />
-      <CTA /> 
       <SponsorsMarquee sponsors={data.allSponsors} />
-      
-      <Footer slanted={true} /> 
+      <CTA /> 
+      <Footer slanted={true} sponsors={data.allSponsors} />
     </div>
   );
 }

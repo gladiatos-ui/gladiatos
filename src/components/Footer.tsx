@@ -1,65 +1,198 @@
 "use client";
 
 import Link from 'next/link';
+import Image from 'next/image';
 import styled from 'styled-components';
+import { useEffect, useState, useRef } from 'react';
+
+interface Sponsor {
+    name: string;
+    url?: string;
+    logo: { url: string };
+}
 
 interface FooterProps {
     slanted: boolean;
+    sponsors?: Sponsor[];
 }
 
-function Footer({ slanted }: FooterProps) {
+interface LogoPosition {
+    topPct: number;
+    leftPct: number;
+    size: number;
+    opacity: number;
+    duration: number;
+    delay: number;
+    rotate: number;
+}
+
+// Check if two placed logos overlap (with padding)
+function overlaps(a: LogoPosition, b: LogoPosition, containerW: number, containerH: number, padding = 16): boolean {
+    const ax = ((a.leftPct / 100) * containerW) + (a.size / 2);
+    const ay = ((a.topPct / 100) * containerH) + (a.size / 2);
+    const bx = ((b.leftPct / 100) * containerW) + (b.size / 2);
+    const by = ((b.topPct / 100) * containerH) + (b.size / 2);
+    
+    const minDist = (a.size / 2) + (b.size / 2) + padding;
+    const dx = ax - bx;
+    const dy = ay - by;
+    return Math.sqrt(dx * dx + dy * dy) < minDist;
+}
+
+// Menambahkan parameter 'slanted' agar bisa menghitung garis miring
+function generatePositions(count: number, containerW: number, containerH: number, slanted: boolean): LogoPosition[] {
+    const placed: LogoPosition[] = [];
+    const MAX_ATTEMPTS = 200;
+
+    for (let i = 0; i < count; i++) {
+        const isLeftZone = i % 2 === 0;
+        let candidate: LogoPosition | null = null;
+
+        for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+            const size = Math.floor(Math.random() * 36) + 56; // 56-92px
+
+            // 1. TENTUKAN POSISI X DAHULU (Kiri/Kanan)
+            let minLeft, maxLeft;
+            if (isLeftZone) {
+                minLeft = 16; 
+                maxLeft = (containerW * 0.25) - size; 
+            } else {
+                minLeft = containerW * 0.75; 
+                maxLeft = containerW - size - 16; 
+            }
+
+            if (maxLeft < minLeft) maxLeft = minLeft;
+            const leftPx = Math.random() * (maxLeft - minLeft) + minLeft;
+
+            let minTop = 20; // Padding aman normal
+            if (slanted) {
+                const vw = typeof window !== 'undefined' ? window.innerWidth : containerW;
+                const maxSlantDrop = 0.09 * vw; 
+                
+                const cutHeight = maxSlantDrop * (1 - (leftPx / containerW));
+                
+                // Tambahkan 24px agar aman saat animasi float naik-turun
+                minTop = cutHeight + 24;
+            }
+
+            let maxTop = containerH - size - 20; 
+            if (maxTop < minTop) maxTop = minTop;
+
+            const topPx = Math.random() * (maxTop - minTop) + minTop;
+
+            const topPct = (topPx / containerH) * 100;
+            const leftPct = (leftPx / containerW) * 100;
+
+            const c: LogoPosition = {
+                topPct,
+                leftPct,
+                size,
+                opacity: 1, 
+                duration: Math.random() * 4 + 4,
+                delay: Math.random() * 3,
+                rotate: Math.random() * 20 - 10,
+            };
+
+            const hasCollision = placed.some(p => overlaps(c, p, containerW, containerH));
+            if (!hasCollision) {
+                candidate = c;
+                break;
+            }
+        }
+
+        if (candidate) placed.push(candidate);
+    }
+
+    return placed;
+}
+
+function Footer({ slanted, sponsors }: FooterProps) {
+    const [positions, setPositions] = useState<LogoPosition[]>([]);
+    const footerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!sponsors?.length) return;
+
+        const el = footerRef.current;
+        const w = el?.offsetWidth ?? window.innerWidth;
+        const h = el?.offsetHeight ?? 320;
+
+        const generated = generatePositions(sponsors.length, w, h, slanted);
+        setPositions(generated);
+    }, [sponsors, slanted]);
+
     return (
         <div className="relative w-full">
             {/* Right decorative shapes */}
-            {slanted && <div className="absolute -top-26 right-0 w-full h-48 pointer-events-none z-10 hidden md:block">
-                {/* Larger slanted rectangle */}
-                <div
-                    className="absolute right-0 top-16 w-64 h-16 bg-secondary"
-                    style={{
-                        clipPath: 'polygon(0 35%, 100% 0, 100% 65%, 0 100%)'
-                    }}
-                />
-
-                {/* Smaller slanted rectangle */}
-                <div
-                    className="absolute right-0 top-24 w-36 h-12 bg-primary opacity-80"
-                    style={{
-                        clipPath: 'polygon(0 25%, 100% 0, 100% 75%, 0 100%)'
-                    }}
-                />
-            </div>
-            }
+            {slanted && (
+                <div className="absolute -top-26 right-0 w-full h-48 pointer-events-none z-10 hidden md:block">
+                    <div className="absolute right-0 top-16 w-64 h-16 bg-secondary"
+                        style={{ clipPath: 'polygon(0 35%, 100% 0, 100% 65%, 0 100%)' }} />
+                    <div className="absolute right-0 top-24 w-36 h-12 bg-primary opacity-80"
+                        style={{ clipPath: 'polygon(0 25%, 100% 0, 100% 75%, 0 100%)' }} />
+                </div>
+            )}
 
             {/* Left decorative shapes */}
-            {slanted && <div className="absolute -top-10 left-0 w-full h-48 pointer-events-none z-10">
-                {/* Smaller slanted rectangle */}
-                <div
-                    className="absolute left-0 top-16 w-36 h-16 bg-secondary"
-                    style={{
-                        clipPath: 'polygon(0 30%, 100% 8%, 100% 63%, 0 85%)'
-                    }}
-                />
-
-                {/* Larger slanted rectangle */}
-                <div
-                    className="absolute left-0 top-18 w-64 h-20 bg-primary opacity-80"
-                    style={{
-                        clipPath: 'polygon(0 45%, 100% 15%, 100% 70%, 0 100%)'
-                    }}
-                />
-            </div>
-            }
+            {slanted && (
+                <div className="absolute -top-10 left-0 w-full h-48 pointer-events-none z-10">
+                    <div className="absolute left-0 top-16 w-36 h-16 bg-secondary"
+                        style={{ clipPath: 'polygon(0 30%, 100% 8%, 100% 63%, 0 85%)' }} />
+                    <div className="absolute left-0 top-18 w-64 h-20 bg-primary opacity-80"
+                        style={{ clipPath: 'polygon(0 45%, 100% 15%, 100% 70%, 0 100%)' }} />
+                </div>
+            )}
 
             <StyledFooter
-                className={`relative w-full bg-background-muted pb-16 ${slanted ? 'pt-48' : 'pt-18'}`}
-                style={{
-                    clipPath: slanted ? 'polygon(0 9vw, 100% 0, 100% 100%, 0 100%)' : 'none'
-                }}
+                ref={footerRef}
+                className={`relative w-full bg-background-muted pb-16 overflow-hidden ${slanted ? 'pt-48' : 'pt-18'}`}
+                style={{ clipPath: slanted ? 'polygon(0 9vw, 100% 0, 100% 100%, 0 100%)' : 'none' }}
             >
-                <div className="container mx-auto">
-                    {/* Main Footer Content */}
+                {/* Floating scattered sponsor logos — collision-free */}
+                {sponsors && positions.length > 0 && (
+                    <div className="absolute inset-0 pointer-events-none z-0">
+                        {positions.map((pos, idx) => {
+                            const sponsor = sponsors[idx];
+                            if (!sponsor) return null;
+                            return (
+                                <div
+                                    key={idx}
+                                    className="absolute"
+                                    style={{
+                                        top: `${pos.topPct}%`,
+                                        left: `${pos.leftPct}%`,
+                                        width: `${pos.size}px`,
+                                        height: `${pos.size}px`,
+                                        opacity: pos.opacity,
+                                        transform: `rotate(${pos.rotate}deg)`,
+                                        animation: `float-logo-${idx} ${pos.duration}s ease-in-out ${pos.delay}s infinite alternate`,
+                                    }}
+                                >
+                                <Image
+                                    src={sponsor.logo.url}
+                                    alt={sponsor.name}
+                                    width={pos.size}
+                                    height={pos.size}
+                                    className="object-contain w-full h-full mix-blend-multiply"
+                                />
+                                </div>
+                            );
+                        })}
+                    </div>
+                )}
+
+                <style>{`
+                    ${positions.map((pos, idx) => `
+                        @keyframes float-logo-${idx} {
+                            0%   { transform: translateY(0px) rotate(${pos.rotate}deg); }
+                            100% { transform: translateY(-12px) rotate(${pos.rotate}deg); }
+                        }
+                    `).join('')}
+                `}</style>
+
+                <div className="container mx-auto px-6 relative z-10">
+                    {/* Nav */}
                     <div className="flex flex-col items-center justify-center gap-8 mb-12">
-                        {/* Navigation Links */}
                         <nav>
                             <ul className="px-4 flex flex-wrap gap-8 text-sm font-semibold uppercase tracking-wide justify-center">
                                 <li><Link href="/">Home</Link></li>
@@ -73,7 +206,7 @@ function Footer({ slanted }: FooterProps) {
                         </nav>
                     </div>
 
-                    {/* Social Media Icons */}
+                    {/* Social */}
                     <div className="flex gap-4 justify-center mb-12">
                         <SocialButton>
                             <Link href="https://instagram.com/gladiatos.ui" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="button">
@@ -121,7 +254,7 @@ function Footer({ slanted }: FooterProps) {
                 </div>
             </StyledFooter>
         </div>
-    )
+    );
 }
 
 const StyledFooter = styled.footer`
@@ -178,26 +311,20 @@ const SocialButton = styled.div`
     text-decoration: none;
   }
 
-  /* Shadow layer */
   .button .shadow {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     background: rgba(0, 0, 0, 0.25);
     border-radius: 8px;
     transform: translateY(2px);
     transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
   }
 
-  /* Edge layer */
   .button .edge {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
     border-radius: 8px;
     background: linear-gradient(
       to left,
@@ -208,7 +335,6 @@ const SocialButton = styled.div`
     );
   }
 
-  /* Front layer */
   .button .front {
     position: relative;
     display: flex;
@@ -224,7 +350,6 @@ const SocialButton = styled.div`
     transition: transform 600ms cubic-bezier(0.3, 0.7, 0.4, 1);
   }
 
-  /* Hover and active states */
   .button:hover .shadow {
     transform: translateY(4px);
     transition: transform 250ms cubic-bezier(0.3, 0.7, 0.4, 1.5);
@@ -245,7 +370,6 @@ const SocialButton = styled.div`
     transition: transform 34ms;
   }
 
-  /* Disable text selection */
   .button .front span {
     user-select: none;
   }
