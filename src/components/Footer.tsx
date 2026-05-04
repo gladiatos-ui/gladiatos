@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import styled from 'styled-components';
-import { useEffect, useState, useRef } from 'react';
 
 interface Sponsor {
     name: string;
@@ -16,111 +15,7 @@ interface FooterProps {
     sponsors?: Sponsor[];
 }
 
-interface LogoPosition {
-    topPct: number;
-    leftPct: number;
-    size: number;
-    opacity: number;
-    duration: number;
-    delay: number;
-    rotate: number;
-}
-
-// Check if two placed logos overlap (with padding)
-function overlaps(a: LogoPosition, b: LogoPosition, containerW: number, containerH: number, padding = 16): boolean {
-    const ax = ((a.leftPct / 100) * containerW) + (a.size / 2);
-    const ay = ((a.topPct / 100) * containerH) + (a.size / 2);
-    const bx = ((b.leftPct / 100) * containerW) + (b.size / 2);
-    const by = ((b.topPct / 100) * containerH) + (b.size / 2);
-    
-    const minDist = (a.size / 2) + (b.size / 2) + padding;
-    const dx = ax - bx;
-    const dy = ay - by;
-    return Math.sqrt(dx * dx + dy * dy) < minDist;
-}
-
-// Menambahkan parameter 'slanted' agar bisa menghitung garis miring
-function generatePositions(count: number, containerW: number, containerH: number, slanted: boolean): LogoPosition[] {
-    const placed: LogoPosition[] = [];
-    const MAX_ATTEMPTS = 200;
-
-    for (let i = 0; i < count; i++) {
-        const isLeftZone = i % 2 === 0;
-        let candidate: LogoPosition | null = null;
-
-        for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
-            const size = Math.floor(Math.random() * 36) + 56; // 56-92px
-
-            // 1. TENTUKAN POSISI X DAHULU (Kiri/Kanan)
-            let minLeft, maxLeft;
-            if (isLeftZone) {
-                minLeft = 16; 
-                maxLeft = (containerW * 0.25) - size; 
-            } else {
-                minLeft = containerW * 0.75; 
-                maxLeft = containerW - size - 16; 
-            }
-
-            if (maxLeft < minLeft) maxLeft = minLeft;
-            const leftPx = Math.random() * (maxLeft - minLeft) + minLeft;
-
-            let minTop = 20; // Padding aman normal
-            if (slanted) {
-                const vw = typeof window !== 'undefined' ? window.innerWidth : containerW;
-                const maxSlantDrop = 0.09 * vw; 
-                
-                const cutHeight = maxSlantDrop * (1 - (leftPx / containerW));
-                
-                // Tambahkan 24px agar aman saat animasi float naik-turun
-                minTop = cutHeight + 24;
-            }
-
-            let maxTop = containerH - size - 20; 
-            if (maxTop < minTop) maxTop = minTop;
-
-            const topPx = Math.random() * (maxTop - minTop) + minTop;
-
-            const topPct = (topPx / containerH) * 100;
-            const leftPct = (leftPx / containerW) * 100;
-
-            const c: LogoPosition = {
-                topPct,
-                leftPct,
-                size,
-                opacity: 1, 
-                duration: Math.random() * 4 + 4,
-                delay: Math.random() * 3,
-                rotate: Math.random() * 20 - 10,
-            };
-
-            const hasCollision = placed.some(p => overlaps(c, p, containerW, containerH));
-            if (!hasCollision) {
-                candidate = c;
-                break;
-            }
-        }
-
-        if (candidate) placed.push(candidate);
-    }
-
-    return placed;
-}
-
 function Footer({ slanted, sponsors }: FooterProps) {
-    const [positions, setPositions] = useState<LogoPosition[]>([]);
-    const footerRef = useRef<HTMLDivElement>(null);
-
-    useEffect(() => {
-        if (!sponsors?.length) return;
-
-        const el = footerRef.current;
-        const w = el?.offsetWidth ?? window.innerWidth;
-        const h = el?.offsetHeight ?? 320;
-
-        const generated = generatePositions(sponsors.length, w, h, slanted);
-        setPositions(generated);
-    }, [sponsors, slanted]);
-
     return (
         <div className="relative w-full">
             {/* Right decorative shapes */}
@@ -144,55 +39,13 @@ function Footer({ slanted, sponsors }: FooterProps) {
             )}
 
             <StyledFooter
-                ref={footerRef}
-                className={`relative w-full bg-background-muted pb-16 overflow-hidden ${slanted ? 'pt-48' : 'pt-18'}`}
+                className={`relative w-full bg-background-muted pb-12 overflow-hidden ${slanted ? 'pt-48' : 'pt-18'}`}
                 style={{ clipPath: slanted ? 'polygon(0 9vw, 100% 0, 100% 100%, 0 100%)' : 'none' }}
             >
-                {/* Floating scattered sponsor logos — collision-free */}
-                {sponsors && positions.length > 0 && (
-                    <div className="absolute inset-0 pointer-events-none z-0">
-                        {positions.map((pos, idx) => {
-                            const sponsor = sponsors[idx];
-                            if (!sponsor) return null;
-                            return (
-                                <div
-                                    key={idx}
-                                    className="absolute"
-                                    style={{
-                                        top: `${pos.topPct}%`,
-                                        left: `${pos.leftPct}%`,
-                                        width: `${pos.size}px`,
-                                        height: `${pos.size}px`,
-                                        opacity: pos.opacity,
-                                        transform: `rotate(${pos.rotate}deg)`,
-                                        animation: `float-logo-${idx} ${pos.duration}s ease-in-out ${pos.delay}s infinite alternate`,
-                                    }}
-                                >
-                                <Image
-                                    src={sponsor.logo.url}
-                                    alt={sponsor.name}
-                                    width={pos.size}
-                                    height={pos.size}
-                                    className="object-contain w-full h-full mix-blend-multiply"
-                                />
-                                </div>
-                            );
-                        })}
-                    </div>
-                )}
-
-                <style>{`
-                    ${positions.map((pos, idx) => `
-                        @keyframes float-logo-${idx} {
-                            0%   { transform: translateY(0px) rotate(${pos.rotate}deg); }
-                            100% { transform: translateY(-12px) rotate(${pos.rotate}deg); }
-                        }
-                    `).join('')}
-                `}</style>
-
                 <div className="container mx-auto px-6 relative z-10">
-                    {/* Nav */}
-                    <div className="flex flex-col items-center justify-center gap-8 mb-12">
+
+                    {/* ── Nav ── */}
+                    <div className="flex flex-col items-center justify-center gap-8 mb-10">
                         <nav>
                             <ul className="px-4 flex flex-wrap gap-8 text-sm font-semibold uppercase tracking-wide justify-center">
                                 <li><Link href="/">Home</Link></li>
@@ -206,8 +59,8 @@ function Footer({ slanted, sponsors }: FooterProps) {
                         </nav>
                     </div>
 
-                    {/* Social */}
-                    <div className="flex gap-4 justify-center mb-12">
+                    {/* ── Social ── */}
+                    <div className="flex gap-4 justify-center mb-10">
                         <SocialButton>
                             <Link href="https://instagram.com/gladiatos.ui" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram" className="button">
                                 <span className="shadow" />
@@ -245,9 +98,34 @@ function Footer({ slanted, sponsors }: FooterProps) {
                         </SocialButton>
                     </div>
 
-                    {/* Copyright */}
-                    <div className="text-center">
-                        <p className="text-md text-text-muted">
+                    {/* ── Sponsors Section ── */}
+                    {sponsors && sponsors.length > 0 && (
+                        <div className="mb-8 flex flex-col items-center">
+                            <SponsorsGrid>
+                                {sponsors.map((sponsor, idx) => (
+                                    <SponsorItem
+                                        key={idx}
+                                        href={sponsor.url ?? '#'}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={sponsor.name}
+                                    >
+                                        <Image
+                                            src={sponsor.logo.url}
+                                            alt={sponsor.name}
+                                            width={120}
+                                            height={48}
+                                            className="object-contain w-full h-full logo-img"
+                                        />
+                                    </SponsorItem>
+                                ))}
+                            </SponsorsGrid>
+                        </div>
+                    )}
+
+                    {/* ── Copyright ── (Garis border-t sudah dihapus) */}
+                    <div className="text-center pt-6">
+                        <p className="text-sm text-text-muted">
                             &copy; {new Date().getFullYear()} Gladiatos. All rights reserved.
                         </p>
                     </div>
@@ -256,6 +134,53 @@ function Footer({ slanted, sponsors }: FooterProps) {
         </div>
     );
 }
+
+/* ─── Sponsors Styled Components ──────────────────────────────────── */
+
+const SponsorsGrid = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem; /* Memberikan jarak yang pas antar logo */
+`;
+
+const SponsorItem = styled.a`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 48px;
+    padding: 8px;
+    text-decoration: none;
+
+    .logo-img {
+        filter: grayscale(100%) opacity(50%);
+        transition: all 0.3s ease;
+    }
+
+    &:hover .logo-img {
+        filter: grayscale(0%) opacity(100%);
+        transform: scale(1.08);
+    }
+
+    /* Jika ada dark mode, ini akan mengubah logo hitam/gelap jadi putih transparan saat belum dihover */
+    .dark & .logo-img {
+        filter: brightness(0) invert(1) opacity(50%);
+    }
+
+    .dark &:hover .logo-img {
+        filter: brightness(0) invert(1) opacity(100%);
+    }
+
+    @media (min-width: 768px) {
+        width: 130px;
+        height: 56px;
+        padding: 10px;
+    }
+`;
+
+/* ─── Footer Styled Components ─────────────────────────────────────── */
 
 const StyledFooter = styled.footer`
   a {

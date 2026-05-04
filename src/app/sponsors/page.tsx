@@ -43,17 +43,20 @@ export default async function Sponsors() {
   return (
     <div className="overflow-x-hidden">
       <Navbar />
+
       <HeroPage
         title="Our Sponsors"
         description="We are immensely grateful to the **visionary partners** who support the Gladiatos team."
-        buttonText="Become a Sponsor"
-        buttonHref="/contact"
+        buttonText="View Sponsors"
+        buttonHref="#sponsors"
         bgColor="bg-background-muted"
       />
-      <div id="sponsors">
+
+      <section id="sponsors">
         <SponsorsList sponsors={sponsors} />
-      </div>
-      <Footer slanted={false} />
+      </section>
+
+      <Footer slanted />
     </div>
   );
 }

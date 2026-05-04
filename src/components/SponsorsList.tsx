@@ -2,6 +2,9 @@
 
 import Image from "next/image";
 import { motion } from "motion/react";
+import Link from "next/link";
+import Button from "@/components/Button";
+import ArrowLink from "@/components/ArrowLink";
 
 interface Sponsor {
   name: string;
@@ -19,14 +22,14 @@ export default function SponsorsList({ sponsors }: SponsorsListProps) {
   return (
     <section className="bg-background py-24 px-4">
 
-      {/* Section header */}
-      <div className="max-w-6xl mx-auto mb-20 text-center">
+      {/* HEADER SPONSOR */}
+      <div className="max-w-5xl mx-auto mb-16 text-center">
         <motion.p
           initial={{ opacity: 0, y: 12 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="font-orbitron text-[10px] tracking-[0.5em] uppercase text-primary mb-4"
+          className="text-sm text-primary uppercase tracking-widest mb-3 font-semibold"
         >
           Season 2026
         </motion.p>
@@ -36,9 +39,9 @@ export default function SponsorsList({ sponsors }: SponsorsListProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="font-orbitron text-3xl md:text-4xl font-bold text-text uppercase tracking-tight"
+          className="text-5xl lg:text-6xl font-semibold mb-3 text-foreground" 
         >
-          Our Partners
+          Our Sponsors
         </motion.h2>
 
         <motion.p
@@ -46,59 +49,44 @@ export default function SponsorsList({ sponsors }: SponsorsListProps) {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.2 }}
-          className="mt-4 text-text-muted text-sm max-w-xl mx-auto leading-relaxed"
+          className="text-base md:text-lg text-text max-w-xl mx-auto leading-relaxed"
         >
-          These organizations believe in the future of humanoid robotics. Their support makes Gladiatos possible.
+          These organizations believe in the future of humanoid robotics and make Gladiatos possible.
         </motion.p>
-
-        <motion.div
-          initial={{ scaleX: 0 }}
-          whileInView={{ scaleX: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="mt-8 h-px w-24 mx-auto bg-primary/50 origin-center"
-        />
       </div>
 
-      {/* Sponsor grid */}
-      <div className="max-w-6xl mx-auto grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+      {/* GRID SPONSOR */}
+      <div className="max-w-5xl mx-auto grid grid-cols-2 sm:grid-cols-3 gap-4">
         {sponsors.map((sponsor, idx) => {
           const hasUrl = Boolean(sponsor.url);
           const Tag = hasUrl ? "a" : "div";
-          const tagProps = hasUrl
-            ? {
-                href: sponsor.url,
-                target: "_blank" as const,
-                rel: "noopener noreferrer",
-                "aria-label": sponsor.name,
-              }
-            : {};
 
           return (
             <motion.div
               key={idx}
-              initial={{ opacity: 0, y: 28 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.45, delay: idx * 0.06 }}
+              transition={{ duration: 0.4, delay: idx * 0.05 }}
             >
               <Tag
-                {...tagProps}
-                className={`group block ${hasUrl ? "cursor-pointer" : "cursor-default"}`}
+                href={sponsor.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group block"
               >
-                <div className="relative overflow-hidden rounded-2xl aspect-square bg-background-muted border border-white/5 transition-all duration-300 ease-out group-hover:border-primary/40 group-hover:-translate-y-1 flex items-center justify-center p-7">
-                  <span className="pointer-events-none absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 rounded-tl-2xl border-primary/0 group-hover:border-primary/70 transition-all duration-300" />
-                  <span className="pointer-events-none absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 rounded-br-2xl border-primary/0 group-hover:border-primary/70 transition-all duration-300" />
-                  <div className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[radial-gradient(ellipse_at_center,rgba(237,28,36,0.06)_0%,transparent_70%)]" />
+                <div className="h-[120px] flex items-center justify-center px-4 rounded-xl bg-white/[0.03] border border-white/[0.06] transition-all duration-300 group-hover:border-primary/30 group-hover:bg-white/[0.05] group-hover:-translate-y-1">
+                  
                   <Image
                     src={sponsor.logo.url}
                     alt={sponsor.name}
-                    width={180}
-                    height={180}
-                    className="object-contain w-full h-full relative z-10 opacity-80 group-hover:opacity-100 transition-all duration-300 scale-95 group-hover:scale-100"
+                    width={140}
+                    height={70}
+                    className="object-contain max-h-[60px] w-auto opacity-80 group-hover:opacity-100 transition-all duration-300"
                   />
                 </div>
-                <p className="mt-3 text-center text-[10px] font-orbitron tracking-[0.25em] uppercase text-text-muted group-hover:text-primary transition-colors duration-300">
+
+                <p className="mt-3 text-center text-sm font-medium uppercase tracking-wide text-text-muted group-hover:text-primary transition-colors duration-300">
                   {sponsor.name}
                 </p>
               </Tag>
@@ -107,22 +95,100 @@ export default function SponsorsList({ sponsors }: SponsorsListProps) {
         })}
       </div>
 
-      {/* CTA */}
-      <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.3 }}
-        className="mt-20 text-center"
-      >
-        <p className="text-text-muted text-sm mb-5">Interested in supporting us?</p>
-        <a href="/contact" className="sponsor-cta inline-flex items-center gap-2 px-7 py-3 font-orbitron text-xs tracking-widest uppercase bg-primary text-white rounded-full transition-all duration-300 hover:opacity-90">
-          Become a Sponsor
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M5 12h14M12 5l7 7-7 7" />
-          </svg>
-        </a>
-      </motion.div>
+      {/* CTA SECTION */}
+      <div className="max-w-6xl mx-auto mt-32 px-4">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          
+          {/* Left section */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-xl md:text-2xl font-bold text-foreground mb-4 mt-2">
+              Interested in Supporting Us?
+            </h2>
+
+            <p className="text-md md:text-lg text-text mb-7">
+              Join the organizations that make Gladiatos possible and be part of the next era of humanoid robotics.
+            </p>
+
+            <div className="flex flex-wrap gap-4">
+              <Link href="/contact">
+                <Button text="BECOME A SPONSOR" />
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Right section */}
+          <div className="grid md:grid-cols-2 gap-8 pt-4 lg:pt-0">
+            
+            {/* Card 1 */}
+            <motion.div
+              className="flex flex-col items-center text-center sm:items-start sm:text-left"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+            >
+              <div className="flex items-center justify-center w-14 h-14 mb-4 rounded-full bg-primary/10 text-primary border border-primary/20">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/>
+                  <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/>
+                  <path d="M4 22h16"/>
+                  <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                  <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                  <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+                </svg>
+              </div>
+              <h3 className="text-md font-semibold text-foreground mb-2">
+                Jump into the arena
+              </h3>
+              <p className="text-md text-text mb-3">
+                Access past strategies to start competing with us.
+              </p>
+              <Link href="/competitions">
+                <ArrowLink text="SEE COMPETITIONS" />
+              </Link>
+            </motion.div>
+
+            {/* Card 2 */}
+            <motion.div
+              className="flex flex-col items-center text-center sm:items-start sm:text-left"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+            >
+              <div className="flex items-center justify-center w-14 h-14 mb-4 rounded-full bg-primary/10 text-primary border border-primary/20">
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <rect width="16" height="16" x="4" y="4" rx="2"/>
+                  <rect width="6" height="6" x="9" y="9" rx="1"/>
+                  <path d="M15 2v2"/>
+                  <path d="M15 20v2"/>
+                  <path d="M2 15h2"/>
+                  <path d="M2 9h2"/>
+                  <path d="M20 15h2"/>
+                  <path d="M20 9h2"/>
+                  <path d="M9 2v2"/>
+                  <path d="M9 20v2"/>
+                </svg>
+              </div>
+              <h3 className="text-md font-semibold text-foreground mb-2">
+                Straight-up robotics
+              </h3>
+              <p className="text-md text-text mb-3">
+                See what we&apos;re working on right now.
+              </p>
+              <Link href="/projects">
+                <ArrowLink text="GET STARTED" />
+              </Link>
+            </motion.div>
+
+          </div>
+        </div>
+      </div>
 
     </section>
   );

@@ -20,9 +20,11 @@ export default function SponsorsMarquee({ sponsors }: SponsorProps) {
       {/* Label */}
       <div className="flex items-center gap-4 max-w-7xl mx-auto px-6 mb-10">
         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
-        <span className="font-orbitron text-[10px] tracking-[0.4em] uppercase text-text-muted whitespace-nowrap">
+        
+        <h2 className="text-3xl lg:text-4xl font-semibold text-foreground whitespace-nowrap">
           Supported By
-        </span>
+        </h2>
+
         <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/30 to-transparent" />
       </div>
 
@@ -31,18 +33,22 @@ export default function SponsorsMarquee({ sponsors }: SponsorProps) {
         {/* Fade left */}
         <div
           className="pointer-events-none absolute inset-y-0 left-0 w-40 z-10"
-          style={{ background: "linear-gradient(to right, var(--color-background, #ffffff) 0%, transparent 100%)" }}
+          style={{
+            background:
+              "linear-gradient(to right, var(--color-background, #ffffff) 0%, transparent 100%)",
+          }}
         />
+
         {/* Fade right */}
         <div
           className="pointer-events-none absolute inset-y-0 right-0 w-40 z-10"
-          style={{ background: "linear-gradient(to left, var(--color-background, #ffffff) 0%, transparent 100%)" }}
+          style={{
+            background:
+              "linear-gradient(to left, var(--color-background, #ffffff) 0%, transparent 100%)",
+          }}
         />
 
-        {/*
-          translateX(-25%) karena duplikasi 4x.
-          Animasi dari 0 ke -25% = tepat satu set sponsor, lalu reset seamless.
-        */}
+        {/* Marquee */}
         <div
           className="flex w-max"
           style={{ animation: "marquee-scroll 30s linear infinite" }}
@@ -74,10 +80,14 @@ export default function SponsorsMarquee({ sponsors }: SponsorProps) {
         </div>
       </div>
 
-      <style>{`
+      <style jsx>{`
         @keyframes marquee-scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-25%); }
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-25%);
+          }
         }
       `}</style>
     </section>
