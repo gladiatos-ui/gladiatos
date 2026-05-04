@@ -1,84 +1,85 @@
 "use client";
 
-import React from 'react';
+import React from "react";
 import { motion } from "motion/react";
 
 interface Competition {
-  id: number;
-  title: string;
-  year: string;
-  image: {
-    url: string;
-  }
-  description?: string;
+	id: number;
+	title: string;
+	year: string;
+	image: {
+		url: string;
+	};
+	description?: string;
 }
 
 interface CompetitionProps {
-  competitionData: Competition[];
+	competitionData: Competition[];
 }
 
 const CompetitionsGrid: React.FC<CompetitionProps> = ({ competitionData }) => {
-  return (
-    <section className="competitions-section px-2 py-16">
-      <div className="container mx-auto">
-        {/* Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-3">
-          {competitionData.map((competition, index) => (
-            <motion.div
-              key={competition.id}
-              className={`competition-card group relative overflow-hidden rounded-sm ${index === competitionData.length - 1 && index % 2 === 0
-                ? 'md:col-span-3 md:min-h-[400px]'
-                : index % 4 === 0
-                  ? 'md:col-span-2 md:row-span-2 md:min-h-[500px]'
-                  : index % 4 === 1
-                    ? 'md:col-span-1 md:row-span-2 md:min-h-[500px]'
-                    : index % 4 === 2
-                      ? 'md:col-span-1 md:min-h-[300px]'
-                      : 'md:col-span-2 md:min-h-[300px]'
-                }`}
-              style={{ minHeight: '300px' }}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              {/* Background Image */}
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                style={{ backgroundImage: `url(${competition.image.url})` }}
-              >
-                <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/40 to-transparent" />
-              </div>
+	return (
+		<section className="competitions-section px-2 py-16">
+			<div className="container mx-auto">
+				{/* Grid Layout */}
+				<div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-3">
+					{competitionData.map((competition, index) => (
+						<motion.div
+							key={competition.id}
+							className={`competition-card group relative overflow-hidden rounded-sm ${
+								index === competitionData.length - 1 && index % 2 === 0
+									? "md:col-span-3 md:min-h-[400px]"
+									: index % 4 === 0
+										? "md:col-span-2 md:row-span-2 md:min-h-[500px]"
+										: index % 4 === 1
+											? "md:col-span-1 md:row-span-2 md:min-h-[500px]"
+											: index % 4 === 2
+												? "md:col-span-1 md:min-h-[300px]"
+												: "md:col-span-2 md:min-h-[300px]"
+							}`}
+							style={{ minHeight: "300px" }}
+							initial={{ opacity: 0, scale: 0.9 }}
+							whileInView={{ opacity: 1, scale: 1 }}
+							viewport={{ once: true }}
+							transition={{ duration: 0.6, delay: 0.2 }}
+						>
+							{/* Background Image */}
+							<div
+								className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+								style={{ backgroundImage: `url(${competition.image.url})` }}
+							>
+								<div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/40 to-transparent" />
+							</div>
 
-              {/* Content Overlay */}
-              <div className="relative z-10 h-full p-4 flex flex-col justify-between">
-                {/* Year Badge */}
-                <div className="flex justify-between items-start">
-                  <span className="inline-block bg-primary text-white px-3 py-1 rounded-md text-xs font-semibold">
-                    {competition.year}
-                  </span>
-                </div>
+							{/* Content Overlay */}
+							<div className="relative z-10 h-full p-4 flex flex-col justify-between">
+								{/* Year Badge */}
+								<div className="flex justify-between items-start">
+									<span className="inline-block bg-primary text-white px-3 py-1 rounded-md text-xs font-semibold">
+										{competition.year}
+									</span>
+								</div>
 
-                {/* Info and Description */}
-                <div className="space-y-3">
-                  <h3 className="text-2xl md:text-4xl font-bold text-primary">
-                    {competition.title}
-                  </h3>
+								{/* Info and Description */}
+								<div className="space-y-3">
+									<h3 className="text-2xl md:text-4xl font-bold text-primary">
+										{competition.title}
+									</h3>
 
-                  <p className="text-text-muted text-sm md:text-base line-clamp-2">
-                    {competition.description}
-                  </p>
-                </div>
-              </div>
+									<p className="text-sm md:text-base line-clamp-2">
+										{competition.description}
+									</p>
+								</div>
+							</div>
 
-              {/* Hover Overlay Effect */}
-              <div className="absolute inset-0 bg-background/0 group-hover:bg-background/20 transition-colors duration-300 pointer-events-none" />
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+							{/* Hover Overlay Effect */}
+							<div className="absolute inset-0 bg-background/0 group-hover:bg-background/20 transition-colors duration-300 pointer-events-none" />
+						</motion.div>
+					))}
+				</div>
+			</div>
+		</section>
+	);
 };
 
 export default CompetitionsGrid;

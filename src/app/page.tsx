@@ -7,11 +7,11 @@ import Footer from '@/components/Footer';
 import SponsorsMarquee from '@/components/SponsorsMarquee'; 
 import { GraphQLClient, gql } from 'graphql-request';
 
-const endpoint = 'https://graphql.datocms.com/';
+const endpoint = "https://graphql.datocms.com/";
 const client = new GraphQLClient(endpoint, {
-  headers: {
-    Authorization: `Bearer ${process.env.DATOCMS_API_KEY}`,
-  },
+	headers: {
+		Authorization: `Bearer ${process.env.DATOCMS_API_KEY}`,
+	},
 });
 
 async function getHomepageData() {
