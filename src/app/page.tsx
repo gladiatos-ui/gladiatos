@@ -9,9 +9,10 @@ import { GraphQLClient, gql } from 'graphql-request';
 
 const endpoint = "https://graphql.datocms.com/";
 const client = new GraphQLClient(endpoint, {
-	headers: {
-		Authorization: `Bearer ${process.env.DATOCMS_API_KEY}`,
-	},
+  headers: {
+    Authorization: `Bearer ${process.env.DATOCMS_API_KEY}`,
+    "X-Environment": process.env.DATOCMS_ENVIRONMENT || "main",
+  },
 });
 
 async function getHomepageData() {
